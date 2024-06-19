@@ -1,0 +1,36 @@
+CREATE DATABASE testeTCC;
+USE testeTCC;
+CREATE TABLE Categoria(
+	IdCategoria INT AUTO_INCREMENT,
+	NomeCategoria VARCHAR(50) NOT NULL,
+	PRIMARY KEY (IdCategoria)
+);
+
+CREATE TABLE Produto(
+	IdProduto INT AUTO_INCREMENT,
+	CategoriaProduto INT NOT NULL,
+	NomeProduto VARCHAR(100) NOT NULL,
+	PrecoProduto DECIMAL(5, 2) NOT NULL,
+	IngredientesProduto VARCHAR(200) NOT NULL,
+	Disponibilidade BOOLEAN NOT NULL,
+	PRIMARY KEY (IdProduto),
+    	FOREIGN KEY (CategoriaProduto) REFERENCES Categoria(IdCategoria)
+);
+
+INSERT INTO Categoria(NomeCategoria) VALUES
+("Bebidas"),
+("Lanches"),
+("Sobremesas");
+
+INSERT INTO Produto(CategoriaProduto, NomeProduto, PrecoProduto, IngredientesProduto, Disponibilidade) VALUES
+(1, "Coca-Cola", 5.00, "Coca-Cola normal", 1),
+(2, "X-frango", 20.00, "Frango, X", 1),
+(3, "Sorvete de chocolate", 10.00, "Chocolate", 1),
+(1, "Sprite", 6, "Frescor", 1);
+
+SELECT Produto.IdProduto, Produto.NomeProduto, Categoria.NomeCategoria, Produto.PrecoProduto, Produto.IngredientesProduto, Produto.Disponibilidade
+FROM Produto
+INNER JOIN Categoria
+ON Produto.CategoriaProduto = Categoria.IdCategoria ORDER BY Produto.IdProduto;
+
+
