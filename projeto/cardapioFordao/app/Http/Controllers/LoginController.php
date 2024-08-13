@@ -12,6 +12,9 @@ class LoginController extends Controller
 {
 
     function isLoged(){
+        $user = new User();
+        $user->name = "admin";
+        $user->password = Hash::make("admin");
         if(!Auth::check()){
             return redirect("admin/login");
         }
@@ -22,20 +25,20 @@ class LoginController extends Controller
     function validar(Request $request){
 
         $request->validate([
-            "name" => "required",
+            "username" => "required",
             "password" => "required"
         ],[
-            "name.required" => "Este campo é obrigatório",
+            "username.required" => "Este campo é obrigatório",
             "password.required" => "Este campo é obrigatório"
         ]);
 
         $validated = Auth::attempt(["name" => $request->name, "password" => $request->password]);
         
         if(!$validated){
-            return redirect("/admin/login")->withErrors(["failedLogin" => "Usuário ou senha incorretos"]);
+            return view("/admin/erroLogin");
         }
 
-        return redirect("/admin/home");
+            return redirect("/admin/home");
 
     }
 

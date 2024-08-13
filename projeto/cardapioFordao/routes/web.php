@@ -8,7 +8,7 @@ Route::redirect('/', "/admin/home");
 
 Route::prefix("/admin")->group(function(){
     
-    Route::view('/login', 'admin/login');
+    Route::view('/login', '/admin/login');
 
     
     Route::controller(LoginController::class)->group(function (){
