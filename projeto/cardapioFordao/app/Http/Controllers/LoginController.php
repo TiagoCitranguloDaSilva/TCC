@@ -8,13 +8,17 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
 
     function isLoged(){
-        $user = new User();
-        $user->name = "admin";
-        $user->password = Hash::make("admin");
+        // $user = new User();
+        // $user->name = "admin";
+        // $user->password = Hash::make("admin");
+        // $user->email = "email@gmail.com";
+        // $user->save();
         if(!Auth::check()){
             return redirect("admin/login");
         }
@@ -32,7 +36,7 @@ class LoginController extends Controller
             "password.required" => "Este campo é obrigatório"
         ]);
 
-        $validated = Auth::attempt(["name" => $request->name, "password" => $request->password]);
+        $validated = Auth::attempt(["name" => $request->username, "password" => $request->password]);
         
         if(!$validated){
             return view("/admin/erroLogin");
