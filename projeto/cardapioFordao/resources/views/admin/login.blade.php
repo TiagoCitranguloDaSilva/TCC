@@ -14,18 +14,16 @@
       <label for="username">Usuário:</label>
       <input type="text" id="username" name="username" >
       @error('username')
-        {{ $message }}
+       <p class="erros">{{ $message }}</p>
           
       @enderror
 
       <label for="password">Senha:</label>
       <input type="password" id="password" name="password" >
       @error('password')
-        {{ $message }}
-          
+        <p class="erros">{{ $message }}</p>
       @enderror
-
-      <button type="submit">Entrar</button>
+      <button type="submit" id="bt">Entrar</button><br>
     </form>
   </div>
   <script src="script.js"></script>
