@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Categoria;
+use App\Models\Produto;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -22,9 +24,9 @@ class LoginController extends Controller
         if(!Auth::check()){
             return redirect("admin/login");
         }
-
-        return view("admin/home");
+        return view("admin/home", ["categorias" => Categoria::all(), "produtos" => Produto::all()]);
     }
+
 
     function validar(Request $request){
 
