@@ -5,11 +5,11 @@ Você logou
 <hr>
 <h2>Categorias</h2>
 @foreach ($categorias as $categoria)
-    <p>{{ $categoria->nome }}</p>
+    <a href="/admin/categoria/update/{{ $categoria->id }}">{{ $categoria->nome }}</a>
 @endforeach
 
 <hr>
 <h2>Produtos</h2>
 @foreach ($produtos as $produto)
-    <p>{{ $produto->nome }}</p>
+    <a href="/admin/produto/update/{{ $produto->id }}">{{ $produto->nome }}</a>
 @endforeach

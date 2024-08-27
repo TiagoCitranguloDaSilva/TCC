@@ -33,6 +33,9 @@ Route::prefix("/admin")->group(function(){
         Route::view("/novo", "/admin/formularios/formularioCategoria");
 
         Route::post("/salvar", [CategoriaController::class, "store"]);
+        
+        Route::get("/update/{id}", [CategoriaController::class, "update"]);
+
 
     });
 
@@ -41,6 +44,8 @@ Route::prefix("/admin")->group(function(){
         Route::any("/novo", [CategoriaController::class, "index"]);
 
         Route::post("/salvar", [ProdutoController::class, "store"]);
+        
+        Route::get("/update/{id}", [ProdutoController::class, "update"]);
 
     });
 

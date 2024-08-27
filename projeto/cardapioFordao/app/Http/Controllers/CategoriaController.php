@@ -34,4 +34,11 @@ class CategoriaController extends Controller
         return redirect("/admin/categoria/novo");
 
     }
+
+    function update ($id) {
+
+        $dados = DB::select("SELECT * FROM categorias WHERE id =$id");
+        return view("admin/formularios/formularioCategoria", ["dados"=>$dados[0]]);
+
+    }
 }

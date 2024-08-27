@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produto;
-
+use App\Models\Categoria;
 use DB;
 
 class ProdutoController extends Controller
@@ -36,6 +36,15 @@ class ProdutoController extends Controller
         $produto->save();
 
         return redirect("/admin/produto/novo");
+
+    }
+
+    function update($id){
+        $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
+
+        $categorias=Categoria::all();
+
+        return view("admin/formularios/formularioProduto", ["dados"=>$dados[0], "categorias"=>$categorias]);
 
     }
 
