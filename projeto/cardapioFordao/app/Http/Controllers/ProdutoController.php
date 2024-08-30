@@ -13,6 +13,23 @@ class ProdutoController extends Controller
     
     function store(Request $request){
 
+        $request->validate([
+            "nome" => "required|max:150",
+            "descricao" => "required|max:500",
+            // "linkImagem" => "required",
+            "preco" => "numeric|required|max:999",
+            "idCategoria" => "required"
+        ], [
+            "nome.required" => "Este campo é obrigatório",
+            "nome.max" => "O tamanho máximo permitido é :max",
+            "descricao.required" => "Este campo é obrigatório",
+            "descricao.max" => "O tamanho máximo permitido é :max",
+            "preco.required" => "Este campo é obrigatório",
+            "preco.max" => "Valor muito alto",
+            "preco.numeric" => "Digite um número válido",
+            "idCategoria" => "Este campo é obrigatório"
+        ]);
+
         $disponivel = 0;
 
         if($request->disponivel == "on"){
@@ -45,6 +62,30 @@ class ProdutoController extends Controller
         $categorias=Categoria::all();
 
         return view("admin/formularios/formularioProduto", ["dados"=>$dados[0], "categorias"=>$categorias]);
+
+    }
+
+    function atualizar(Request $request){
+
+        $disponivel = 0;
+
+        if($request->disponivel == 1){
+            $disponivel = 1;
+        }
+
+        DB::table("produtos")
+            ->where("id", $request->id)
+            ->update([
+                "nome" => $request->nome,
+                "disponivel" => $disponivel,
+                "linkImagem" => "",
+                "descricao" => $request->descricao,
+                "preco" => $request->preco,
+                "idCategoria" => $request->idCategoria,
+                "updated_at" => date("Y/m/d H:i:s")
+            ]);
+
+        return redirect("/admin");
 
     }
 

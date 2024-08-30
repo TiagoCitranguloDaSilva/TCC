@@ -17,6 +17,13 @@ class CategoriaController extends Controller
 
     function store(Request $request){
 
+        $request->validate([
+            "nome" => "required|max:150"
+        ],[
+            "nome.required" => "Este campo é obrigatório",
+            "nome.max" => "O tamanho máximo permitido é :max"
+        ]);
+
         $disponivel = 0;
 
         if($request->disponivel == "on"){
@@ -39,6 +46,34 @@ class CategoriaController extends Controller
 
         $dados = DB::select("SELECT * FROM categorias WHERE id =$id");
         return view("admin/formularios/formularioCategoria", ["dados"=>$dados[0]]);
+
+    }
+
+    function atualizar(Request $request){
+
+        $request->validate([
+            "nome" => "required|max:150"
+        ],[
+            "nome.required" => "Este campo é obrigatório",
+            "nome.max" => "O tamanho máximo permitido é :max"
+        ]);
+
+        $disponivel = 0;
+
+        if($request->disponivel == 1){
+            $disponivel = 1;
+        }
+
+        DB::table("categorias")
+            ->where("id", $request->id)
+            ->update([
+                "nome" => $request->nome,
+                "disponivel" => $disponivel,
+                "updated_at" => date("Y/m/d H:i:s")
+            ]);
+
+
+        return redirect("admin/");
 
     }
 }

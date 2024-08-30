@@ -36,6 +36,8 @@ Route::prefix("/admin")->group(function(){
         
         Route::get("/update/{id}", [CategoriaController::class, "update"]);
 
+        Route::put("/mudancas", [CategoriaController::class, "atualizar"]);
+
 
     });
 
@@ -46,6 +48,8 @@ Route::prefix("/admin")->group(function(){
         Route::post("/salvar", [ProdutoController::class, "store"]);
         
         Route::get("/update/{id}", [ProdutoController::class, "update"]);
+
+        Route::put("/mudancas", [ProdutoController::class, "atualizar"]);
 
     });
 

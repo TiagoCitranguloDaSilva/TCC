@@ -1,15 +1,24 @@
 <form 
 
-@if (isset($dados))
+    @if (isset($dados))
 
-    action="/admin/categoria/mudancas"
-@else
-    action="/admin/categoria/salvar"
+        action="/admin/categoria/mudancas"
+    @else
+        action="/admin/categoria/salvar"
 
 
-@endif method="post">
+    @endif method="post">
     @csrf
-    <input type="text" name="nome" id="" placeholder="Nome" value="{{ $dados->nome ?? '' }}">
+    @if (isset($dados))
+        @method("put")
+        <input type="hidden" name="id" id="id" value="{{$dados->id}}">
+    @endif
+    <p>
+        <input type="text" name="nome" id="" placeholder="Nome" value="{{ $dados->nome ?? '' }}">
+        @error('nome')
+            <p>{{$message}}</p>
+        @enderror
+    </p>
     <input type="checkbox" name="disponivel" 
 
     @if (isset($dados)  && $dados->disponivel==1 )
