@@ -37,7 +37,7 @@
                     <button class="editarCategoria" onclick="editarCategoria({{$categoria->id}})">Editar</button>
                 </div>
                 <div class="corpoCategoria">
-                    @forelse ($produtos[$categoria->nome] as $produto)
+                    @forelse ($produtos[$categoria->id] as $produto)
                         <div class="produto">
                             <div id="produtoItem">
                                 <div class="card">

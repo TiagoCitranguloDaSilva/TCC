@@ -31,7 +31,7 @@ class LoginController extends Controller
         $produtos = [];
 
         foreach($categorias as $categoria){
-            $produtos[$categoria->nome] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id);
+            $produtos[$categoria->id] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id);
         }
         return view("admin/home", ["categorias" => $categorias, "produtos" => $produtos]);
     }
