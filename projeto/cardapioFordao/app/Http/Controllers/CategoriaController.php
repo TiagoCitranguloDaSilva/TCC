@@ -60,7 +60,7 @@ class CategoriaController extends Controller
 
         $disponivel = 0;
 
-        if($request->disponivel == 1){
+        if($request->disponivel == "on"){
             $disponivel = 1;
         }
 

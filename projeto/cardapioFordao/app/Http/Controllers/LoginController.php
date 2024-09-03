@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Categoria;
 use App\Models\Produto;
+use DB;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +25,15 @@ class LoginController extends Controller
         if(!Auth::check()){
             return redirect("admin/login");
         }
-        return view("admin/home", ["categorias" => Categoria::all(), "produtos" => Produto::all()]);
+
+        $categorias = Categoria::all();
+
+        $produtos = [];
+
+        foreach($categorias as $categoria){
+            $produtos[$categoria->nome] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id);
+        }
+        return view("admin/home", ["categorias" => $categorias, "produtos" => $produtos]);
     }
 
 
