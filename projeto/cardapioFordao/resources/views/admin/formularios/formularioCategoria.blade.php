@@ -1,3 +1,6 @@
+@error('existemProdutos')
+    <p>{{$message}}</p>
+@enderror
 <form 
 
     @if (isset($dados))
@@ -27,7 +30,17 @@
 
         
     @endif id="">
+
+    @if (isset($dados))
+        <button type="button" onclick="excluir({{$dados->id}})">Excluir</button>
+    @endif
     <input type="submit" value="Enviar">
 
 </form>
+
+<script>
+    function excluir(id){
+        window.location.href = `/admin/categoria/excluir/${id}`
+    }
+</script>
 <a href="/admin">voltar</a>

@@ -4,13 +4,25 @@
 @else
     action="/admin/produto/salvar"
 
-@endif method="post">
+@endif method="post" enctype="multipart/form-data">
     @csrf
     @if (isset($dados))
         @method("put")
         <input type="hidden" name="id" value="{{$dados->id}}">
     @endif
-    <input type="file" name="link" id="" disabled>
+    <div>
+        <div id="imagePreview">
+            <img id="preview" 
+                @if (isset($dados))
+                    src="{{asset($dados->linkImagem)}}"
+                @endif
+            alt="Pré-visualização da imagem" style="max-width: 300px;">
+        </div>
+        <input type="file" name="link" id="fileInput" required>
+        @error('link')
+            <p>{{$message}}</p>
+        @enderror
+    </div>
     <p>
         <input type="text" name="nome" id="" placeholder="Nome" value="{{$dados->nome ?? ''}}" >
         @error('nome')
@@ -23,7 +35,7 @@
     
     @endif id="">
     <p>
-        <textarea name="descricao" id="" cols="30" rows="10" placeholder="Descrição" maxlength="500" >{{$dados->nome ?? ''}}</textarea>
+        <textarea name="descricao" id="" cols="30" rows="10" placeholder="Descrição" maxlength="500" >{{ $dados->descricao ?? '' }}</textarea>
         @error('descricao')
             <p>{{ $message }}</p>
         @enderror
@@ -47,3 +59,18 @@
     <input type="submit" value="Enviar">
 </form>
 <a href="/admin">voltar</a>
+
+<script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+</script>

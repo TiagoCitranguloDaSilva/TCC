@@ -38,18 +38,21 @@ Route::prefix("/admin")->group(function(){
 
         Route::put("/mudancas", [CategoriaController::class, "atualizar"]);
 
-
+        Route::get("/excluir/{id}", [CategoriaController::class, "excluir"]);
+        
     });
-
+    
     Route::prefix("/produto")->group(function (){
-
+        
         Route::any("/novo", [CategoriaController::class, "index"]);
-
+        
         Route::post("/salvar", [ProdutoController::class, "store"]);
         
         Route::get("/update/{id}", [ProdutoController::class, "update"]);
-
+        
         Route::put("/mudancas", [ProdutoController::class, "atualizar"]);
+        
+        Route::get("/excluir/{id}", [ProdutoController::class, "excluir"]);
 
     });
 

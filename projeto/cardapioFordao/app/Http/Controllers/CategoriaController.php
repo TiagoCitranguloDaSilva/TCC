@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Categoria;
 
+use App\Models\Produto;
+
 use DB;
 
 class CategoriaController extends Controller
@@ -74,6 +76,29 @@ class CategoriaController extends Controller
 
 
         return redirect("admin/");
+
+    }
+
+    function excluir($id){
+
+        $exists = Categoria::findOrFail($id);
+
+        if($exists){
+
+            $query = db::select("SELECT * FROM produtos WHERE idCategoria = $id");
+
+            // print_r($query);
+
+            if(count($query) > 0){
+                return back()->withErrors(["existemProdutos" => "Não foi possivel apagar, há produtos cadastrados nesta categoria"])->withInput();
+            }
+
+            db::table("categorias")
+                ->where("id", $id)
+                ->delete();
+        }
+
+        return redirect("/admin");
 
     }
 }
