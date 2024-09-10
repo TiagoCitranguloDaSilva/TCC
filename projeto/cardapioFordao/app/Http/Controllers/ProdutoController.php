@@ -65,6 +65,12 @@ class ProdutoController extends Controller
     }
 
     function update($id){
+
+        $exists = Produto::find($id);
+        if($exists == null){
+            return redirect()->back();
+        }  
+        
         $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
 
         $categorias=Categoria::all();
@@ -75,16 +81,29 @@ class ProdutoController extends Controller
 
     function atualizar(Request $request){
 
-        $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
+        $exists = Produto::find($request->id);
+        if($exists == null){
+            return redirect()->back();
+        }  
 
+        $path;
 
-        if (file_exists(public_path($linkImagem[0]->linkImagem))) {
-            unlink(public_path($linkImagem[0]->linkImagem));
+        if(isset($request->linkImagem)){
+            
+            
+            $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
+            if (file_exists(public_path($linkImagem[0]->linkImagem))) {
+                unlink(public_path($linkImagem[0]->linkImagem));
+            }
+            $path = "pictures/" . date("YmdHis") . "." . "jpg";
+            move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
+        }else{
+            $temp = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
+            $path = $temp[0]->linkImagem;
         }
 
-        $path = "pictures/" . date("YmdHis") . "." . "jpg";
+
         
-        move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
 
         $disponivel = 0;
 
@@ -110,9 +129,9 @@ class ProdutoController extends Controller
 
     function excluir($id){
 
-        $exists = Produto::findOrFail($id);
+        $exists = Produto::find($id);
 
-        if($exists){
+        if($exists != null){
 
             $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $id);
 

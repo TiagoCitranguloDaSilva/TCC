@@ -18,7 +18,11 @@
                 @endif
             alt="Pré-visualização da imagem" style="max-width: 300px;">
         </div>
-        <input type="file" name="link" id="fileInput" required>
+        <input type="file" name="link" id="fileInput" 
+        @if (!isset($dados))
+            required
+        @endif
+        accept="image/*">
         @error('link')
             <p>{{$message}}</p>
         @enderror

@@ -45,13 +45,23 @@ class CategoriaController extends Controller
     }
 
     function update ($id) {
-
+        $exists = Categoria::find($id);
+        if($exists == null){
+            return redirect()->back();
+        }  
+        
         $dados = DB::select("SELECT * FROM categorias WHERE id =$id");
         return view("admin/formularios/formularioCategoria", ["dados"=>$dados[0]]);
 
     }
 
     function atualizar(Request $request){
+
+        $exists = Categoria::find($request->id);
+        if($exists == null){
+            return redirect()->back();
+        }
+        
 
         $request->validate([
             "nome" => "required|max:150"
@@ -81,9 +91,9 @@ class CategoriaController extends Controller
 
     function excluir($id){
 
-        $exists = Categoria::findOrFail($id);
+        $exists = Categoria::find($id);
 
-        if($exists){
+        if($exists != null){
 
             $query = db::select("SELECT * FROM produtos WHERE idCategoria = $id");
 
