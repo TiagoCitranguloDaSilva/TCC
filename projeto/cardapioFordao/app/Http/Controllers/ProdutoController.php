@@ -10,6 +10,10 @@ use App\Models\Produto;
 use App\Models\Categoria;
 use DB;
 
+use Carbon\Carbon;
+
+use Carbon\Exceptions\InvalidFormatException;
+
 class ProdutoController extends Controller
 {
     
@@ -18,7 +22,7 @@ class ProdutoController extends Controller
         $request->validate([
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            "link" => "required",
+            "image" => "required",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [
@@ -26,7 +30,7 @@ class ProdutoController extends Controller
             "nome.max" => "O tamanho máximo permitido é :max",
             "descricao.required" => "Este campo é obrigatório",
             "descricao.max" => "O tamanho máximo permitido é :max",
-            "link.required" => "Este campo é obrigatório",
+            "image.required" => "Este campo é obrigatório",
             "preco.required" => "Este campo é obrigatório",
             "preco.max" => "Valor muito alto",
             "preco.numeric" => "Digite um número válido",
@@ -54,7 +58,7 @@ class ProdutoController extends Controller
 
         $path = "pictures/" . date("YmdHis") . "." . "jpg";
         
-        move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
+        move_uploaded_file($_FILES['image']['tmp_name'], public_path($path));
         
         $produto->linkImagem = $path;
 
@@ -74,6 +78,15 @@ class ProdutoController extends Controller
         $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
 
         $categorias=Categoria::all();
+
+        $dataOriginal = $dados[0]->updated_at;
+
+        $data = Carbon::parse($dataOriginal);
+
+        $dataConvertida = $data->format('d/m/Y H:i:s');
+
+        $dados[0]->updated_at = $dataConvertida;
+        
 
         return view("admin/formularios/formularioProduto", ["dados"=>$dados[0], "categorias"=>$categorias]);
 
