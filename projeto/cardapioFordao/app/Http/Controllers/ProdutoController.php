@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Produto;
 use App\Models\Categoria;
 use DB;
+
+use Carbon\Carbon;
+
+use Carbon\Exceptions\InvalidFormatException;
 
 class ProdutoController extends Controller
 {
@@ -16,7 +22,7 @@ class ProdutoController extends Controller
         $request->validate([
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            // "linkImagem" => "required",
+            "image" => "required",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [
@@ -24,6 +30,7 @@ class ProdutoController extends Controller
             "nome.max" => "O tamanho máximo permitido é :max",
             "descricao.required" => "Este campo é obrigatório",
             "descricao.max" => "O tamanho máximo permitido é :max",
+            "image.required" => "Este campo é obrigatório",
             "preco.required" => "Este campo é obrigatório",
             "preco.max" => "Valor muito alto",
             "preco.numeric" => "Digite um número válido",
@@ -42,13 +49,18 @@ class ProdutoController extends Controller
 
         $produto->descricao = $request->descricao;
 
-        $produto->linkImagem = "";
-
+        
         $produto->disponivel = $disponivel;
-
+        
         $produto->preco = floatval($request->preco);
-
+        
         $produto->idCategoria = $request->idCategoria;
+
+        $path = "pictures/" . date("YmdHis") . "." . "jpg";
+        
+        move_uploaded_file($_FILES['image']['tmp_name'], public_path($path));
+        
+        $produto->linkImagem = $path;
 
         $produto->save();
 
@@ -57,15 +69,54 @@ class ProdutoController extends Controller
     }
 
     function update($id){
+
+        $exists = Produto::find($id);
+        if($exists == null){
+            return redirect()->back();
+        }  
+        
         $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
 
         $categorias=Categoria::all();
+
+        $dataOriginal = $dados[0]->updated_at;
+
+        $data = Carbon::parse($dataOriginal);
+
+        $dataConvertida = $data->format('d/m/Y H:i:s');
+
+        $dados[0]->updated_at = $dataConvertida;
+        
 
         return view("admin/formularios/formularioProduto", ["dados"=>$dados[0], "categorias"=>$categorias]);
 
     }
 
     function atualizar(Request $request){
+
+        $exists = Produto::find($request->id);
+        if($exists == null){
+            return redirect()->back();
+        }  
+
+        $path;
+
+        if(isset($request->linkImagem)){
+            
+            
+            $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
+            if (file_exists(public_path($linkImagem[0]->linkImagem))) {
+                unlink(public_path($linkImagem[0]->linkImagem));
+            }
+            $path = "pictures/" . date("YmdHis") . "." . "jpg";
+            move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
+        }else{
+            $temp = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
+            $path = $temp[0]->linkImagem;
+        }
+
+
+        
 
         $disponivel = 0;
 
@@ -78,7 +129,7 @@ class ProdutoController extends Controller
             ->update([
                 "nome" => $request->nome,
                 "disponivel" => $disponivel,
-                "linkImagem" => "",
+                "linkImagem" => $path,
                 "descricao" => $request->descricao,
                 "preco" => $request->preco,
                 "idCategoria" => $request->idCategoria,
@@ -86,6 +137,28 @@ class ProdutoController extends Controller
             ]);
 
         return redirect("/admin");
+
+    }
+
+    function excluir($id){
+
+        $exists = Produto::find($id);
+
+        if($exists != null){
+
+            $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $id);
+
+
+            if (file_exists(public_path($linkImagem[0]->linkImagem))) {
+                unlink(public_path($linkImagem[0]->linkImagem));
+            }
+
+            db::table("produtos")
+                ->where("id", $id)
+                ->delete();
+        }
+
+        return redirect("admin/");
 
     }
 

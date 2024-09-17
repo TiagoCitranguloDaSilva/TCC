@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Categoria;
 
+use App\Models\Produto;
+
 use DB;
 
 class CategoriaController extends Controller
@@ -43,13 +45,23 @@ class CategoriaController extends Controller
     }
 
     function update ($id) {
-
+        $exists = Categoria::find($id);
+        if($exists == null){
+            return redirect()->back();
+        }  
+        
         $dados = DB::select("SELECT * FROM categorias WHERE id =$id");
         return view("admin/formularios/formularioCategoria", ["dados"=>$dados[0]]);
 
     }
 
     function atualizar(Request $request){
+
+        $exists = Categoria::find($request->id);
+        if($exists == null){
+            return redirect()->back();
+        }
+        
 
         $request->validate([
             "nome" => "required|max:150"
@@ -74,6 +86,29 @@ class CategoriaController extends Controller
 
 
         return redirect("admin/");
+
+    }
+
+    function excluir($id){
+
+        $exists = Categoria::find($id);
+
+        if($exists != null){
+
+            $query = db::select("SELECT * FROM produtos WHERE idCategoria = $id");
+
+            // print_r($query);
+
+            if(count($query) > 0){
+                return back()->withErrors(["existemProdutos" => "Não foi possivel apagar, há produtos cadastrados nesta categoria"])->withInput();
+            }
+
+            db::table("categorias")
+                ->where("id", $id)
+                ->delete();
+        }
+
+        return redirect("/admin");
 
     }
 }

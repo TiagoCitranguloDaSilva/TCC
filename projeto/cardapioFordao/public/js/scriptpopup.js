@@ -26,7 +26,7 @@ function editar(id){
 }
 
 function excluir(id){
-  window.location.href = `/admin/produto/delete/${id}`
+  window.location.href = `/admin/produto/excluir/${id}`
 }
 
 function editarCategoria(id){

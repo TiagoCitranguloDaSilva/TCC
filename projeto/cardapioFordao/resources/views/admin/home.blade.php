@@ -42,7 +42,7 @@
                             <div id="produtoItem">
                                 <div class="card">
                                     <div class="img"
-                                        style="background-image: url('{{ asset('pictures/imagem_produto.jpg') }}')">
+                                        style="background-image: url('{{ asset($produto->linkImagem) }}')">
                                     </div>
                                     {{-- <img src="{{asset('pictures/imagem_produto.jpg')}}" alt="Produto"> --}}
                                     <h2>{{$produto->nome}}</h2>
@@ -55,7 +55,7 @@
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
                                     <div class="img"
-                                        style="background-image: url('{{ asset('pictures/imagem_produto.jpg') }}')">
+                                        style="background-image: url('{{ asset($produto->linkImagem) }}')">
                                     </div>
                                     <div class="nomeProduto">
                                         <h2>{{$produto->nome}}</h2>
