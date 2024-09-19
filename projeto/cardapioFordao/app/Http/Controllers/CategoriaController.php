@@ -8,7 +8,11 @@ use App\Models\Categoria;
 
 use App\Models\Produto;
 
+use App\Http\Controllers\ProdutoController;
+
 use DB;
+
+use Illuminate\Support\Facades\Validator;
 
 class CategoriaController extends Controller
 {
@@ -18,13 +22,22 @@ class CategoriaController extends Controller
     }
 
     function store(Request $request){
+        
+    
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "nome" => "required|max:150"
         ],[
             "nome.required" => "Este campo é obrigatório",
             "nome.max" => "O tamanho máximo permitido é :max"
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
 
         $disponivel = 0;
 
@@ -63,12 +76,18 @@ class CategoriaController extends Controller
         }
         
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "nome" => "required|max:150"
         ],[
             "nome.required" => "Este campo é obrigatório",
             "nome.max" => "O tamanho máximo permitido é :max"
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $disponivel = 0;
 
@@ -95,12 +114,13 @@ class CategoriaController extends Controller
 
         if($exists != null){
 
-            $query = db::select("SELECT * FROM produtos WHERE idCategoria = $id");
+            $produtoController = new ProdutoController();
 
-            // print_r($query);
+            
+            foreach (DB::select("SELECT id FROM produtos WHERE idCategoria = $id") as $idProduto) {
 
-            if(count($query) > 0){
-                return back()->withErrors(["existemProdutos" => "Não foi possivel apagar, há produtos cadastrados nesta categoria"])->withInput();
+                $produtoController->excluir($idProduto->id);
+                
             }
 
             db::table("categorias")
@@ -110,5 +130,11 @@ class CategoriaController extends Controller
 
         return redirect("/admin");
 
+    }
+
+    function produtosCadastrados($id){
+
+        return response()->json(sizeof(DB::select("SELECT nome FROM produtos WHERE idCategoria = $id")));
+        
     }
 }

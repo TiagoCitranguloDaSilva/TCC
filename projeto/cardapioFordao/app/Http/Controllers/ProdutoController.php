@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\Produto;
 use App\Models\Categoria;
 use DB;
@@ -19,7 +21,7 @@ class ProdutoController extends Controller
     
     function store(Request $request){
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
             "image" => "required",
@@ -32,10 +34,16 @@ class ProdutoController extends Controller
             "descricao.max" => "O tamanho máximo permitido é :max",
             "image.required" => "Este campo é obrigatório",
             "preco.required" => "Este campo é obrigatório",
-            "preco.max" => "Valor muito alto",
+            "preco.max" => "O valor máximo permitido é R$ :max",
             "preco.numeric" => "Digite um número válido",
             "idCategoria" => "Este campo é obrigatório"
         ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
 
         $disponivel = 0;
 
@@ -55,6 +63,10 @@ class ProdutoController extends Controller
         $produto->preco = floatval($request->preco);
         
         $produto->idCategoria = $request->idCategoria;
+
+        if(!file_exists(public_path("pictures"))){
+            mkdir(public_path('pictures'), 0777, false);
+        }
 
         $path = "pictures/" . date("YmdHis") . "." . "jpg";
         
@@ -140,7 +152,7 @@ class ProdutoController extends Controller
 
     }
 
-    function excluir($id){
+    function excluir($id, $porController = false){
 
         $exists = Produto::find($id);
 
@@ -158,7 +170,23 @@ class ProdutoController extends Controller
                 ->delete();
         }
 
-        return redirect("admin/");
+        if(!$porController){
+            return redirect("admin/");
+        }
+
+
+    }
+
+    function show($id){
+
+        $exists = Produto::find($id);
+
+        
+        
+        if($exists){
+            $exists->linkImagem = asset($exists->linkImagem);
+            return response()->json($exists);
+        }
 
     }
 

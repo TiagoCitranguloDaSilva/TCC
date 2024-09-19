@@ -19,6 +19,7 @@
 <head>
     <title>Cardápio com Pop-up</title>
     <link rel="stylesheet" href="{{ asset('css/stylepopup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
 </head>
 
 <body>
@@ -44,40 +45,37 @@
                                     <div class="img"
                                         style="background-image: url('{{ asset($produto->linkImagem) }}')">
                                     </div>
-                                    {{-- <img src="{{asset('pictures/imagem_produto.jpg')}}" alt="Produto"> --}}
                                     <h2>{{$produto->nome}}</h2>
                                     <p>{{$produto->descricao}}</p>
-                                    <button class="btn-ver">Ver mais</button>
+                                    <button class="btn-ver" onclick="showPopUp({{$produto->id}})">Ver mais</button>
                                 </div>
                             </div>
 
                             <div class="modal" id="myModal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
-                                    <div class="img"
-                                        style="background-image: url('{{ asset($produto->linkImagem) }}')">
-                                    </div>
+
+                                    <div class="img" id="modalImage"></div>
+
                                     <div class="nomeProduto">
-                                        <h2>{{$produto->nome}}</h2>
+                                        <h2 id="modalNome"></h2>
                                     </div>
 
                                     <div class="precoProduto">
-                                        <p>{{$produto->preco}}</p>
+                                        <p id="modalPreco"></p>
                                     </div>
 
                                     <div class="descricaoProduto">
-                                        <p>{{$produto->descricao}}</p>
+                                        <p id="modalDesc"></p>
                                     </div>
+
                                     <div class="disponivelProduto">
                                         <label for="disponivel">Disponível:</label>
-                                        <input type="checkbox" id="disponivel" disabled
-                                        @if ($produto->disponivel == 1)
-                                            checked
-                                        @endif
-                                        >
+                                        <input type="checkbox" id="disponivel" disabled>
                                     </div>
-                                    <button class="btn-editar btn" onclick="editar({{$produto->id}})">Editar</button>
-                                    <button class="btn-excluir btn" onclick="excluir({{$produto->id}})">Excluir</button>
+
+                                    <button class="btn-editar btn" id="btnEditar">Editar</button>
+                                    <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +87,7 @@
                 </div>
             </div>
         @empty
-            <p>Não há categorias cadastradas</p>
+            <h2 id="naoCategorias">Não há categorias cadastradas</h2>
         @endforelse
     </main>
 

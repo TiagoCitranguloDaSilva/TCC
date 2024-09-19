@@ -17,12 +17,12 @@
   padding: 20px;
   margin: 10px;
   width: 195px;
+  height: 250px;
   text-align: center;
   display: grid;
+  gap: 3px;
   grid-template-rows: 5fr min-content min-content 1fr;
 }
-
-
 
 .modal {
   display: none;
@@ -205,6 +205,7 @@ header{
   align-items: center;
   justify-items: center;
   width: 100%;
+  gap: 20px;
 }
 
 h1{
@@ -250,3 +251,25 @@ header button:hover{
   padding: 10px;
   cursor: pointer;
 }
+
+#naoCategorias{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.2em;
+  color: gray;
+}
+
+.card h2, .card p, .nomeCategoria h2{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nomeCategoria h2{
+  max-width: calc(100% - 150px);
+}
+
+
+

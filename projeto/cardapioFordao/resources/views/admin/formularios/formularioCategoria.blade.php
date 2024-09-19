@@ -4,6 +4,7 @@
 <head>
     <title>Formulário de Adição de Categorias</title>
     <link rel="stylesheet" href="{{ asset('css/formularioCategoria.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
             @if (isset($dados)) action="/admin/categoria/mudancas"
             @else
                 action="/admin/categoria/salvar" @endif
-            method="post" enctype="multipart/form-data">
+            method="post" enctype="multipart/form-data" autocomplete="off">
             @csrf
             @if (isset($dados))
                 @method('put')
@@ -22,16 +23,17 @@
 
             <div id="nomeContainer">
                 <label for="name">Nome:</label>
-                <input type="text" id="name" name="nome" required value="{{ $dados->nome ?? '' }}">
+                <input type="text" id="name" name="nome" required value="{{ $dados->nome ?? old('nome') }}" placeholder="Nome da categoria">
                 @error('nome')
-                    <p>{{ $message }}</p>
+                    <p class="erro">{{ $message }}</p>
                 @enderror
             </div>
 
             <div id="disponivelContainer">
-                <label>Disponível no cardápio:</label>
+                <label for="available">Disponível no cardápio:</label>
                 <input type="checkbox" id="available" name="disponivel"
-                    @if (isset($dados) && $dados->disponivel == 1) checked @endif>
+                    @if (isset($dados) && $dados->disponivel == 1) checked @endif
+                    {{ old('disponivel') ? 'checked' : '' }}>
             </div>
 
             @isset($dados)
@@ -56,9 +58,5 @@
         </form>
     </div>
 </body>
-<script>
-    function excluir(id) {
-        window.location.href = `/admin/categoria/excluir/${id}`
-    }
-</script>
+<script src="{{asset('js/excluirCategoria.js')}}"></script>
 </html>

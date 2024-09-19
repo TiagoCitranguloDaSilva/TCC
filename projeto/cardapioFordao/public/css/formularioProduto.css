@@ -116,3 +116,23 @@ input[type="file"]{
     margin: 0;
     padding: 0 5px;
 }
+
+.erro{
+    margin-top: 3px;
+    padding-left: 5px;
+    font-size: 1em;
+    color: #ff1919;
+}
+
+.erro::before{
+    content: "*";
+    color: #ff1919;
+}
+
+div:has(.erro) > input, div:has(.erro) > textarea{
+    border-color: red;
+}
+
+textarea{
+    resize: vertical;
+}

@@ -39,7 +39,9 @@ Route::prefix("/admin")->group(function(){
         Route::put("/mudancas", [CategoriaController::class, "atualizar"]);
 
         Route::get("/excluir/{id}", [CategoriaController::class, "excluir"]);
-        
+
+        Route::get("/produtosCadastrados/{id}", [CategoriaController::class, "produtosCadastrados"]);
+
     });
     
     Route::prefix("/produto")->group(function (){
@@ -53,6 +55,8 @@ Route::prefix("/admin")->group(function(){
         Route::put("/mudancas", [ProdutoController::class, "atualizar"]);
         
         Route::get("/excluir/{id}", [ProdutoController::class, "excluir"]);
+
+        Route::get("/show/{id}", [ProdutoController::class, "show"]);
 
     });
 
