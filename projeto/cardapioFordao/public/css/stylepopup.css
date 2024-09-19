@@ -273,3 +273,30 @@ header button:hover{
 
 
 
+.indisponivel{
+  filter: grayscale(90%);
+}
+
+.indisponivel .card{
+  background-color: lightgray;
+}
+
+/* .indisponivel .nomeCategoria{
+  background-color: #9c9c9c;
+  color: rgb(224, 224, 224);
+}
+
+.indisponivel .corpoCategoria{
+  background-color: rgb(231, 231, 231);
+  color: rgb(51, 51, 51);
+}
+
+.indisponivel .editarCategoria{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid gray;
+  color: rgb(41, 41, 41);
+}
+
+.indisponivel .card{
+  border-color: rgb(95, 95, 95);
+} */

@@ -1,7 +1,0 @@
-Aviso que a categoria/produto foi cadastrado
-
-deixar visualmente mais auto explicativo
-
-deixar visualmente mais bonito
-
-Adicionar alguma forma estetica pra mostrar categorias/produtos não disponiveis

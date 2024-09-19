@@ -63,7 +63,11 @@
                 <label for="category">Categoria:</label>
                 <select id="category" name="idCategoria" required>
                     @forelse ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                        <option value="{{ $categoria->id }}"
+                            @if (isset($dados) && $dados->idCategoria == $categoria->id)
+                                selected
+                            @endif
+                            >{{ $categoria->nome }}</option>
                     @empty
                         <option value="#" disabled>Não há categorias disponíveis</option>
                     @endforelse

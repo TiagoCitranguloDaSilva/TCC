@@ -32,14 +32,26 @@
     </header>
     <main>
         @forelse ($categorias as $categoria)
-            <div class="categoria">
+            <div 
+            @if (isset($categoria->disponivel) && $categoria->disponivel == 0)
+                class="categoria indisponivel"
+            @else
+                class="categoria"
+            @endif
+            >
                 <div class="nomeCategoria">
                     <h2>{{ $categoria->nome }}</h2>
                     <button class="editarCategoria" onclick="editarCategoria({{$categoria->id}})">Editar</button>
                 </div>
                 <div class="corpoCategoria">
                     @forelse ($produtos[$categoria->id] as $produto)
-                        <div class="produto">
+                        <div
+                            @if (isset($produto->disponivel) && $produto->disponivel == 0)
+                                class="produto indisponivel"
+                            @else
+                                class="produto"
+                            @endif
+                        >
                             <div id="produtoItem">
                                 <div class="card">
                                     <div class="img"
@@ -48,34 +60,6 @@
                                     <h2>{{$produto->nome}}</h2>
                                     <p>{{$produto->descricao}}</p>
                                     <button class="btn-ver" onclick="showPopUp({{$produto->id}})">Ver mais</button>
-                                </div>
-                            </div>
-
-                            <div class="modal" id="myModal">
-                                <div class="modal-content">
-                                    <span class="close">&times;</span>
-
-                                    <div class="img" id="modalImage"></div>
-
-                                    <div class="nomeProduto">
-                                        <h2 id="modalNome"></h2>
-                                    </div>
-
-                                    <div class="precoProduto">
-                                        <p id="modalPreco"></p>
-                                    </div>
-
-                                    <div class="descricaoProduto">
-                                        <p id="modalDesc"></p>
-                                    </div>
-
-                                    <div class="disponivelProduto">
-                                        <label for="disponivel">Disponível:</label>
-                                        <input type="checkbox" id="disponivel" disabled>
-                                    </div>
-
-                                    <button class="btn-editar btn" id="btnEditar">Editar</button>
-                                    <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -90,6 +74,33 @@
             <h2 id="naoCategorias">Não há categorias cadastradas</h2>
         @endforelse
     </main>
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="img" id="modalImage"></div>
+
+            <div class="nomeProduto">
+                <h2 id="modalNome"></h2>
+            </div>
+
+            <div class="precoProduto">
+                <p id="modalPreco"></p>
+            </div>
+
+            <div class="descricaoProduto">
+                <p id="modalDesc"></p>
+            </div>
+
+            <div class="disponivelProduto">
+                <label for="disponivel">Disponível:</label>
+                <input type="checkbox" id="disponivel" disabled>
+            </div>
+
+            <button class="btn-editar btn" id="btnEditar">Editar</button>
+            <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
+        </div>
+    </div>
 
     <a href="/admin/logout" id="logout">Sair</a>
     <script src="{{ asset('js/scriptpopup.js') }}"></script>
