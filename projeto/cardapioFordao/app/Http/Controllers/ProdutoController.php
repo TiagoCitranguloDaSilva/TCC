@@ -76,7 +76,7 @@ class ProdutoController extends Controller
 
         $produto->save();
 
-        return redirect("/admin/produto/novo");
+        return redirect("/admin/produto/novo")->with("mensagemSucesso", "Produto cadastrado com sucesso!");
 
     }
 
@@ -148,7 +148,7 @@ class ProdutoController extends Controller
                 "updated_at" => date("Y/m/d H:i:s")
             ]);
 
-        return redirect("/admin");
+        return redirect("/admin/home")->with("mensagemSucesso", "Produto atualizado com sucesso!");
 
     }
 
@@ -171,7 +171,7 @@ class ProdutoController extends Controller
         }
 
         if(!$porController){
-            return redirect("admin/");
+            return redirect("admin/home")->with("mensagemSucesso", "Produto apagado com sucesso!");
         }
 
 

@@ -1,18 +1,3 @@
-{{-- Você logou
-<a href="/admin/logout">logout</a>
-<a href="/admin/categoria/novo">addCategoria</a>
-<a href="/admin/produto/novo">addProduto</a>
-<hr>
-<h2>Categorias</h2>
-@foreach ($categorias as $categoria)
-    <a href="/admin/categoria/update/{{ $categoria->id }}">{{ $categoria->nome }}</a>
-@endforeach
-
-<hr>
-<h2>Produtos</h2>
-@foreach ($produtos as $produto)
-    <a href="/admin/produto/update/{{ $produto->id }}">{{ $produto->nome }}</a>
-@endforeach --}}
 <!DOCTYPE html>
 <html>
 
@@ -20,9 +5,15 @@
     <title>Cardápio com Pop-up</title>
     <link rel="stylesheet" href="{{ asset('css/stylepopup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
 
 <body>
+    @if (session("mensagemSucesso"))
+        <div id="message">
+            <p>{{session("mensagemSucesso")}}</p>
+        </div>
+    @endif
     <header>
         <h1>Lista de produtos</h1>
         <div id="botoesAdicionar">
@@ -104,6 +95,7 @@
 
     <a href="/admin/logout" id="logout">Sair</a>
     <script src="{{ asset('js/scriptpopup.js') }}"></script>
+    <script src="{{ asset('js/mensagem.js') }}"></script>
 </body>
 
 </html>

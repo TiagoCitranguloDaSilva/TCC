@@ -1,0 +1,18 @@
+#message{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: #7fcc7f;
+    text-align: center;
+    width: 400px;
+    height: 60px;
+    transform: translateX(-50%);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 2px 2px 2px #6fb46f4d;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

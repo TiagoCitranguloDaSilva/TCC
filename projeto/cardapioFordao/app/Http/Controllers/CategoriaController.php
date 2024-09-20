@@ -53,7 +53,7 @@ class CategoriaController extends Controller
 
         $categoria->save();
 
-        return redirect("/admin/categoria/novo");
+        return redirect("/admin/categoria/novo")->with("mensagemSucesso", "Categoria cadastrada com sucesso!");
 
     }
 
@@ -104,7 +104,7 @@ class CategoriaController extends Controller
             ]);
 
 
-        return redirect("admin/");
+        return redirect("admin/home")->with("mensagemSucesso", "Categoria atualizada com sucesso!");
 
     }
 
@@ -128,7 +128,7 @@ class CategoriaController extends Controller
                 ->delete();
         }
 
-        return redirect("/admin");
+        return redirect("admin/home")->with("mensagemSucesso", "Categoria apagada com sucesso!");
 
     }
 

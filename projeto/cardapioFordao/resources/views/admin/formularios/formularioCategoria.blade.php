@@ -5,9 +5,15 @@
     <title>Formulário de Adição de Categorias</title>
     <link rel="stylesheet" href="{{ asset('css/formularioCategoria.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
 
 <body>
+    @if (session("mensagemSucesso"))
+        <div id="message">
+            <p>{{session("mensagemSucesso")}}</p>
+        </div>
+    @endif
     <div class="card">
         <h2>Adicionar Categoria</h2>
         <form
@@ -58,5 +64,6 @@
         </form>
     </div>
 </body>
-<script src="{{asset('js/excluirCategoria.js')}}"></script>
+    <script src="{{asset('js/excluirCategoria.js')}}"></script>
+    <script src="{{asset('js/mensagem.js')}}"></script>
 </html>

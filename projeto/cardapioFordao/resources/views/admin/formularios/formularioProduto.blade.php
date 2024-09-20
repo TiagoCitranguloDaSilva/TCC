@@ -4,9 +4,15 @@
 <head>
     <title>Formulário de Adição de Produtos</title>
     <link rel="stylesheet" href="{{ asset('css/formularioProduto.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
 
 <body>
+    @if (session("mensagemSucesso"))
+        <div id="message">
+            <p>{{session("mensagemSucesso")}}</p>
+        </div>
+    @endif
     <div class="card">
         <h2>Adicionar Produto</h2>
         <form
@@ -53,7 +59,8 @@
 
             <div id="precoContainer">
                 <label for="price">Preço:</label>
-                <input type="text" id="price" name="preco" required value="{{ $dados->preco ?? old('preco') }}" placeholder="Preço do produto">
+                <input type="number" id="price" name="preco" step="0.01" min="0" required value="{{ $dados->preco ?? old('preco') }}" placeholder="Preço do produto">
+                {{-- <input type="text" id="price" name="preco" required value="{{ $dados->preco ?? old('preco') }}" placeholder="Preço do produto"> --}}
                 @error('preco')
                     <p class='erro'>{{ $message }}</p>
                 @enderror
@@ -117,6 +124,7 @@
             }
         });
     </script>
+    <script src="{{asset('js/mensagem.js')}}"></script>
 </body>
 
 </html>

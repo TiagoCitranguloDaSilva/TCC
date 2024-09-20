@@ -94,7 +94,7 @@ function showPopUp(id){
       } else {
           modalImage.style.backgroundImage = `url('${data.linkImagem}')`
           modalNome.innerText = data.nome
-          modalPreco.innerText = data.preco
+          modalPreco.innerText = `R$ ${data.preco}`
           modalDesc.innerText = data.descricao
           if(data.disponivel == 1){
             disponivel.checked = true
