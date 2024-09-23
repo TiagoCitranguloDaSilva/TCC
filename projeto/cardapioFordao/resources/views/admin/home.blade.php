@@ -3,7 +3,7 @@
 
 <head>
     <title>Cardápio com Pop-up</title>
-    <link rel="stylesheet" href="{{ asset('css/stylepopup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
@@ -94,7 +94,7 @@
     </div>
 
     <a href="/admin/logout" id="logout">Sair</a>
-    <script src="{{ asset('js/scriptpopup.js') }}"></script>
+    <script src="{{ asset('js/scriptHome.js') }}"></script>
     <script src="{{ asset('js/mensagem.js') }}"></script>
 </body>
 
