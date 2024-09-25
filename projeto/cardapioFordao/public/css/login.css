@@ -1,6 +1,22 @@
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+
+  --bodyColor: #f0f0f0;
+  --containerColor: white;
+  --erroColor: #bf4040;
+
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background-color: var(--bodyColor);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,35 +24,48 @@ body {
 }
 
 .container {
-  background-color: #fff;
-  padding: 40px;
+  background-color: var(--containerColor);
+  padding: 2.5em 3em;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.4em;
 }
 
 form {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  gap: 1.5em;
+}
+
+#senhaContainer, #usuarioContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .4em;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 
 input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  padding: .8em;
+  /* margin-bottom: 10px; */
+  border: 1px solid z#ccc;
   border-radius: 3px;
 }
 
 button {
   background-color: #4CAF50;
   color: #fff;
-  padding: 10px 20px;
+  padding: .6rem 1.2rem;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -47,8 +76,24 @@ button {
 }
 
 .erros{
-  margin: 0;
   margin-bottom: 0.5em;
   font-size: 0.75rem;
-  color: hsl(0, 50%, 50%);
+  color: var(--erroColor);
+}
+
+.erros::before{
+  content: "*";
+  color: var(--erroColor);
+}
+
+@media screen and (min-width: 1200px) {
+  html{
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  button{
+    font-size: 1.2rem;
+  }
 }
