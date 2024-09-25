@@ -109,11 +109,13 @@ function showPopUp(id){
 
           span.onclick = function() {
             modal.style.display = "none";
+            document.body.style.overflow = ""
           }
           
           window.onclick = function(event) {
             if (event.target == modal) {
               modal.style.display = "none";
+              document.body.style.overflow = ""
             }
           }
 
@@ -122,6 +124,8 @@ function showPopUp(id){
       }
   })
   .catch(error => console.error('Error:', error));
+
+  document.body.style.overflow = "hidden"
 
 
 

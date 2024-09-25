@@ -1,5 +1,3 @@
-
-
 .popup {
   /* Estilização do pop-up */
   display: none;
@@ -77,13 +75,13 @@
 
 /* CSS EXTRA */
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   min-height: 100vh;
   padding: 2em;
   position: relative;
@@ -93,7 +91,7 @@ body{
   gap: 1.3em;
 }
 
-main{
+main {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -101,7 +99,7 @@ main{
   position: relative;
 }
 
-.categoria{
+.categoria {
   max-width: 1000px;
   width: 90%;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, .12);
@@ -113,13 +111,13 @@ main{
   background-color: rgb(246, 246, 246);
 }
 
-.img{
+.img {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.nomeCategoria{
+.nomeCategoria {
   background-color: #4caf50;
   border-radius: 9px 9px 0 0;
   display: flex;
@@ -133,7 +131,7 @@ main{
   position: relative;
 }
 
-.corpoCategoria{
+.corpoCategoria {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -141,29 +139,30 @@ main{
   justify-content: center;
 }
 
-.corpoCategoria p{
+.corpoCategoria p {
   margin: .6em;
   font-size: 1.6em;
   color: #606060;
   font-weight: bold;
 }
 
-.btn-ver{
+.btn-ver {
   cursor: pointer;
 }
 
-.btn-ver:hover{
+.btn-ver:hover {
   transform: scale(1.05);
   transition: .3s;
 }
 
-.modal-content .img{
+.modal-content .img {
   width: 100%;
   height: 100%;
   grid-row: 1 / 3;
 }
 
-.nomeProduto, .precoProduto{
+.nomeProduto,
+.precoProduto {
   width: 100%;
   text-align: center;
   display: flex;
@@ -172,32 +171,33 @@ main{
   justify-content: center;
 }
 
-.descricaoProduto, .disponivelProduto{
+.descricaoProduto,
+.disponivelProduto {
   min-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-column:  1 / 3;
+  grid-column: 1 / 3;
 }
 
-.descricaoProduto{
-  grid-row:  3 / 4;
-  grid-column:  1 / 3;
+.descricaoProduto {
+  grid-row: 3 / 4;
+  grid-column: 1 / 3;
   border: 1px solid darkgray;
 }
 
-.disponivelProduto{
-  grid-row:  4 / 5;
+.disponivelProduto {
+  grid-row: 4 / 5;
   font-size: 1.2em;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
 
 
-.botoesProduto{
+.botoesProduto {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +205,7 @@ input[type="checkbox"]{
   grid-column: 1 / 3;
 }
 
-.btn{
+.btn {
   width: 8em;
   height: 4em;
   margin: auto;
@@ -214,12 +214,12 @@ input[type="checkbox"]{
   border: 1px solid darkgray;
 }
 
-.btn:hover{
+.btn:hover {
   transform: scale(1.05);
   transform: .3s;
 }
 
-header{
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,29 +228,29 @@ header{
   gap: 1em;
 }
 
-h1{
+h1 {
   text-align: center;
   font-size: 3rem;
 }
 
-#botoesAdicionar{
+#botoesAdicionar {
   display: flex;
   gap: 1.6em;
 }
 
-header button{
+header button {
   width: 9em;
   height: 3em;
   cursor: pointer;
   font-size: .8em;
 }
 
-header button:hover{
+header button:hover {
   transform: scale(1.05);
   transition: .3s;
 }
 
-.editarCategoria{
+.editarCategoria {
   transform: translateY(-50%);
   position: absolute;
   cursor: pointer;
@@ -260,7 +260,7 @@ header button:hover{
   height: 2.8em;
 }
 
-#logout{
+#logout {
   position: absolute;
   top: 1.5em;
   right: 1.5em;
@@ -273,7 +273,7 @@ header button:hover{
   cursor: pointer;
 }
 
-#naoCategorias{
+#naoCategorias {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -282,79 +282,101 @@ header button:hover{
   color: gray;
 }
 
-.card h2, .card p, .nomeCategoria h2{
+.card h2,
+.card p,
+.nomeCategoria h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.nomeCategoria h2{
+.nomeCategoria h2 {
   max-width: calc(100% - 150px);
 }
 
 
 
-.indisponivel{
+.indisponivel {
   filter: grayscale(90%);
 }
 
-.indisponivel .card{
+.indisponivel .card {
   background-color: lightgray;
 }
 
-.naoProdutos, #naoCategorias{
+.naoProdutos,
+#naoCategorias {
   text-align: center;
 }
 
 
-@media screen and (width <= 1000px) {
-  html{
+@media screen and (width <=1000px) {
+  html {
     font-size: 1.2rem;
   }
 }
 
-@media screen and (width <= 600px) {
+@media screen and (width <=600px) {
 
-  html{
+  html {
     font-size: 1rem;
   }
 
-  body{
+  body {
     padding: 1.5em .2em;
+    padding-top: 5em;
   }
 
-  .categoria{
+  .categoria {
     width: 100%;
   }
 
-  .btn-ver{
+  .btn-ver {
     height: 3em;
   }
 
-  .modal-content{
+  .modal-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 95%;
+    width: 100%;
+    height: 100%;
+    padding-top: 4em;
   }
 
-  .modal-content .img{
+  .modal-content .img {
     width: 20em;
   }
 
-  .modal-content div{
+  .modal-content div {
     width: 20em;
     min-width: auto;
   }
 
-  .close{
+  .close {
+    top: .2em;
+    right: .2em;
+    font-size: 4rem;
+
+    width: 1em;
+    height: 1em;
     display: flex;
-    justify-content: end;
-    width: 5em;
-    position: relative;
-    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .botoesProduto {
+    gap: 2em;
+  }
+
+  .botoesProduto button {
+    width: 90%;
+  }
+
+  .descricaoProduto {
+    min-height: 10em;
+    display: block;
   }
 
 }
-
