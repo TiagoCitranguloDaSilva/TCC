@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <title>Cardápio com Pop-up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
@@ -56,7 +57,7 @@
                         </div>
                     @empty
                         
-                        <p>Não há produtos cadastrados</p>
+                        <p class="naoProdutos">Não há produtos cadastrados</p>
                     
                     @endforelse
                 </div>
@@ -88,8 +89,10 @@
                 <input type="checkbox" id="disponivel" disabled>
             </div>
 
-            <button class="btn-editar btn" id="btnEditar">Editar</button>
-            <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
+            <div class="botoesProduto">
+                <button class="btn-editar btn" id="btnEditar">Editar</button>
+                <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
+            </div>
         </div>
     </div>
 
