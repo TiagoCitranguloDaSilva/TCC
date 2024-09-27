@@ -137,4 +137,8 @@ class CategoriaController extends Controller
         return response()->json(sizeof(DB::select("SELECT nome FROM produtos WHERE idCategoria = $id")));
         
     }
+
+    function pegarCategoriasDisponiveis(){
+        return db::select("SELECT * FROM categorias WHERE disponivel = 1 ORDER BY nome");
+    }
 }

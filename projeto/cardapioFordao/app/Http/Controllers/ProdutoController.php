@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Validator;
 
+use App\Http\Controllers\CategoriaController;
+
 use App\Models\Produto;
 use App\Models\Categoria;
 use DB;
@@ -188,6 +190,18 @@ class ProdutoController extends Controller
             return response()->json($exists);
         }
 
+    }
+
+    function showProducts(){
+        $controller = new CategoriaController();
+        $categorias = $controller->pegarCategoriasDisponiveis();
+        $dados = [];
+        foreach ($categorias as $categoria) {
+            $produtos = db::select("SELECT * FROM produtos where idCategoria = " . $categoria->id . " AND disponivel = 1 ORDER BY nome");
+            $dados[$categoria->id] = $produtos;
+        }
+
+        return view("home", ["dados" => $dados]);
     }
 
 }

@@ -9,7 +9,9 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProdutoController;
 
 
-Route::redirect('/', "/admin/home");
+Route::redirect('/', "/home");
+
+Route::get("/home", [ProdutoController::class, "showProducts"]);
 
 Route::prefix("/admin")->group(function(){
     
