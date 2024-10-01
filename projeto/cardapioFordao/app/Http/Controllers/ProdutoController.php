@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CategoriaController;
 
 use App\Models\Produto;
-use App\Models\Categoria;
+
 use DB;
 
 use Carbon\Carbon;
@@ -91,7 +91,9 @@ class ProdutoController extends Controller
         
         $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
 
-        $categorias=Categoria::all();
+        $categoria = new CategoriaController;
+
+        $categorias = $categoria->getAll();
 
         $dataOriginal = $dados[0]->updated_at;
 

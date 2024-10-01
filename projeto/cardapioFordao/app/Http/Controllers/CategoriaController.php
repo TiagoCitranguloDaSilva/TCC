@@ -141,4 +141,8 @@ class CategoriaController extends Controller
     function pegarCategoriasDisponiveis(){
         return db::select("SELECT * FROM categorias WHERE disponivel = 1 ORDER BY nome");
     }
+
+    function getAll(){
+        return Categoria::all();
+    }
 }

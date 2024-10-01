@@ -17,11 +17,6 @@ class LoginController extends Controller
 {
 
     function isLoged(){
-        // $user = new User();
-        // $user->name = "admin";
-        // $user->password = Hash::make("admin");
-        // $user->email = "email@gmail.com";
-        // $user->save();
         if(!Auth::check()){
             return redirect("admin/login");
         }
