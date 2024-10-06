@@ -106,7 +106,7 @@
                         Adicionar
                     @endif
                 </button>
-                <button type="button" id="btnVoltar" onclick="window.location.href = '/admin'">Voltar</button>
+                <button type="button" id="btnVoltar" onclick="window.location.href = '/admin/home'">Voltar</button>
             </div>
         </form>
     </div>

@@ -57,7 +57,7 @@
                         Adicionar
                     @endif
                 </button>
-                <button type="button" id="btnVoltar" onclick="window.location.href = '/admin'">Voltar</button>
+                <button type="button" id="btnVoltar" onclick="window.location.href = '/admin/home'">Voltar</button>
                 @if (isset($dados))
                     <button type="button" onclick="excluir({{ $dados->id }})" id="btnExcluir">Excluir</button>
                 @endif

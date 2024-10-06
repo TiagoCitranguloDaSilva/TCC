@@ -20,6 +20,17 @@ use Carbon\Exceptions\InvalidFormatException;
 
 class ProdutoController extends Controller
 {
+
+    function index(){
+        $categorias = DB::select("SELECT * FROM categorias ORDER BY disponivel DESC, nome");
+
+        $produtos = [];
+
+        foreach($categorias as $categoria){
+            $produtos[$categoria->id] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id . " ORDER BY disponivel DESC, nome");
+        }
+        return view("admin/home", ["categorias" => $categorias, "produtos" => $produtos]);
+    }
     
     function store(Request $request){
 

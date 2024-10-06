@@ -8,27 +8,30 @@ use App\Http\Controllers\CategoriaController;
 
 use App\Http\Controllers\ProdutoController;
 
+use App\Http\Middleware\AdminMiddleware;
+
 
 Route::redirect('/', "/home");
 
 Route::get("/home", [ProdutoController::class, "showProducts"]);
 
-Route::prefix("/admin")->group(function(){
-    
-    Route::redirect('/', "/admin/home");
+Route::view('admin/login', '/admin/login');
 
-    Route::view('/login', '/admin/login');
-
-    
-    Route::controller(LoginController::class)->group(function (){
+Route::controller(LoginController::class)->group(function (){
         
-        Route::any('/home', "isLoged");
+    
+    Route::post('admin/validar', 'validar');
+    
+    Route::any('admin/logout', 'logout');
+    
+});
 
-        Route::post('/validar', 'validar');
-        
-        Route::any('/logout', 'logout');
-
-    });
+Route::prefix("/admin")->middleware([AdminMiddleware::class])->group(function(){
+    
+    Route::redirect('/', "admin/login");
+    
+    Route::get('/home', [ProdutoController::class, "index"]);
+    
 
     Route::prefix("/categoria")->group(function (){
 
