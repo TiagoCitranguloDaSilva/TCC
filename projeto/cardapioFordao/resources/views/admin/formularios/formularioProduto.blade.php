@@ -35,7 +35,7 @@
                     style="display: none" 
                 @endif>
                 </div>
-                <input type="file" id="imageInput" name="image" @if (!isset($dados)) required @endif
+                <input type="file" id="imageInput" name="link" @if (!isset($dados)) required @endif
                     accept="image/*">
                 @error('link')
                     <p class='erro'>{{ $message }}</p>

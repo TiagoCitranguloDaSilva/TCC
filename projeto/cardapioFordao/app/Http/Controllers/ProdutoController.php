@@ -37,7 +37,7 @@ class ProdutoController extends Controller
         $validator = Validator::make($request->all(), [
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            "image" => "required",
+            "link" => "required",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [
@@ -45,7 +45,7 @@ class ProdutoController extends Controller
             "nome.max" => "O tamanho máximo permitido é :max",
             "descricao.required" => "Este campo é obrigatório",
             "descricao.max" => "O tamanho máximo permitido é :max",
-            "image.required" => "Este campo é obrigatório",
+            "link.required" => "Este campo é obrigatório",
             "preco.required" => "Este campo é obrigatório",
             "preco.max" => "O valor máximo permitido é R$ :max",
             "preco.numeric" => "Digite um número válido",
@@ -83,7 +83,7 @@ class ProdutoController extends Controller
 
         $path = "pictures/" . date("YmdHis") . "." . "jpg";
         
-        move_uploaded_file($_FILES['image']['tmp_name'], public_path($path));
+        move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
         
         $produto->linkImagem = $path;
 
@@ -128,7 +128,8 @@ class ProdutoController extends Controller
 
         $path;
 
-        if(isset($request->linkImagem)){
+        if(isset($request->link)){
+
             
             
             $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
@@ -141,7 +142,6 @@ class ProdutoController extends Controller
             $temp = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
             $path = $temp[0]->linkImagem;
         }
-
 
         
 
