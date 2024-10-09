@@ -1,88 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{{asset('css/accordion.css')}}">
-    <link rel="stylesheet" href="{{asset('css/stylea.css')}}">
+    <title>HOME</title>
+    <link rel="stylesheet" href="{{ asset('css/paginaInicial.css') }}">
 </head>
+
 <body>
-    <div class="container">
+    <header>
         <nav>
-            <div class="logo"> 
-                <span>Cardápio (logo aqui)</span>
+            <div class="dropdown">
+                <button class="dropbtn">Produtos</button>
+                <div class="dropdown-content">
+                    @forelse ($categorias as $categoria)
+                        <a href="#{{ $categoria->id }}" target="_self">{{ $categoria->nome }}</a>
+                    @empty
+                        <p>Não há</p>
+                    @endforelse
+                </div>
             </div>
-            <ul>
-                <li> <a href="#" class="produtos">Produtos</a></li>
-                <li> <a href="#">Sobre</a></li>
-                <li> <a href="#">Contatos</a></li>
-            </ul>
         </nav>
-        </div>
-        
-<h1 style="background-color: #2192FF;text-align: center;font-size: 40px;
-    font-family: Georgia, 'Times New Roman', Times, serif;font-style: normal;font-weight: normal;color: #FFFFFF; margin-top:40px; margin: 8px;">Bebidas</h1>
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>Suco</h1>
-      <h2>Frutas vermelhas</h2>
-      <span>R$ 5,50</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="logo">
 
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>Suco</h1>
-      <h2>Morango</h2>
-      <span>R$ 4,30</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
+            </div>
 
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>Suco</h1>
-      <h2> Uva </h2>
-      <span>R$ 7,90</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
-  <h1 style="background-color: #2192FF;text-align: center;font-size: 40px;
-    font-family: Georgia, 'Times New Roman', Times, serif;font-style: normal;font-weight: normal;color: #FFFFFF; margin-top: 40px; margin: 8px;">Lanches</h1>
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>X-Egg</h1>
-      <h2>Lanche</h2>
-      <span>R$ 5,50</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
+            <div id="botoes">
+                <button id="aumentar" onclick="changeFontSize('aumentar')">A+</button>
+                <button id="padrao" onclick="changeFontSize('normalizar')">A</button>
+                <button id="diminuir" onclick="changeFontSize('reduzir')">A-</button>
+            </div>
 
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>X-salada</h1>
-      <h2>Lanche</h2>
-      <span>R$ 4,30</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
+            @forelse ($categorias as $categoria)
+                <div class="categoria" id="{{$categoria->id}}">
+                    <h2 class="tituloCategoria">{{ $categoria->nome }}</h2>
+                    <div class="corpoCategoria">
+                      @forelse ($dados[$categoria->id] as $produto)
+                        <div class="card">
+                          <img src="{{asset($produto->linkImagem)}}">
+                          <div>
+                              <h3>{{$produto->nome}}</h3>
+                              <span>R$ {{ $produto->preco }}</span>
+                              <button>Ler mais</button>
+                          </div>
+                        </div>
+                      @empty
+                          
+                      @endforelse
+                    </div>
+                </div>
+            @empty
+            @endforelse
+    </main>
 
-  <div class="card">
-    <img src="">
-    <div>
-      <h1>X-burguer</h1>
-      <h2> Lanche </h2>
-      <span>R$ 7,90</span>
-      <button>Ler mais</button>
-    </div>
-  </div>
 
 </body>
+<script src="{{ asset('js/fontCode.js') }}"></script>
+
 </html>

@@ -214,7 +214,7 @@ class ProdutoController extends Controller
             $dados[$categoria->id] = $produtos;
         }
 
-        return view("home", ["dados" => $dados]);
+        return view("home", ["dados" => $dados, "categorias" => $categorias]);
     }
 
 }
