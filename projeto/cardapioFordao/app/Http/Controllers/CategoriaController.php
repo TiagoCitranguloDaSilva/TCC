@@ -139,7 +139,7 @@ class CategoriaController extends Controller
     }
 
     function pegarCategoriasDisponiveis(){
-        return db::select("SELECT * FROM categorias WHERE disponivel = 1 ORDER BY nome");
+        return db::select("SELECT categorias.* FROM categorias INNER JOIN produtos ON produtos.idCategoria = categorias.id");
     }
 
     function getAll(){

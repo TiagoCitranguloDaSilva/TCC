@@ -3,7 +3,13 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Adição de Produtos</title>
+    <title>Formulário de 
+        @isset($dados)
+            Edição
+        @else
+            Adição
+        @endisset
+        de Produtos</title>
     <link rel="stylesheet" href="{{ asset('css/formularioProduto.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
@@ -15,7 +21,13 @@
         </div>
     @endif
     <div class="card">
-        <h2>Adicionar Produto</h2>
+        <h2>
+            @isset($dados)
+                Editar
+            @else
+                Adicionar
+            @endisset
+            Produto</h2>
         <form
             @if (isset($dados)) action="/admin/produto/mudancas"
             @else

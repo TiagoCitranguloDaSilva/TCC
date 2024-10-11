@@ -3,7 +3,13 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Adição de Categorias</title>
+    <title>Formulário de 
+        @isset($dados)
+            Edição
+        @else
+            Adição
+        @endisset
+     de Categorias</title>
     <link rel="stylesheet" href="{{ asset('css/formularioCategoria.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
@@ -16,7 +22,13 @@
         </div>
     @endif
     <div class="card">
-        <h2>Adicionar Categoria</h2>
+        <h2>
+            @isset($dados)
+                Editar
+            @else
+                Adicionar
+            @endisset
+            Categoria</h2>
         <form
             @if (isset($dados)) action="/admin/categoria/mudancas"
             @else

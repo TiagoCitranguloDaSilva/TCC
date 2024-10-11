@@ -29,11 +29,13 @@
 
             </div>
 
-            <div id="botoes">
-                <button id="aumentar" onclick="changeFontSize('aumentar')">A+</button>
-                <button id="padrao" onclick="changeFontSize('normalizar')">A</button>
-                <button id="diminuir" onclick="changeFontSize('reduzir')">A-</button>
-            </div>
+            @isset($categorias)
+                <div id="botoes">
+                    <button id="aumentar" onclick="changeFontSize('aumentar')">A+</button>
+                    <button id="padrao" onclick="changeFontSize('normalizar')">A</button>
+                    <button id="diminuir" onclick="changeFontSize('reduzir')">A-</button>
+                </div>
+            @endisset
 
             @forelse ($categorias as $categoria)
                 <div class="categoria" id="{{$categoria->id}}">
@@ -54,6 +56,7 @@
                     </div>
                 </div>
             @empty
+                <p class="naoHa">Não há produtos disponíveis</p>
             @endforelse
     </main>
 
