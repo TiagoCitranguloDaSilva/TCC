@@ -37,7 +37,7 @@ class ProdutoController extends Controller
         $validator = Validator::make($request->all(), [
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            "link" => "required",
+            "link" => "required|image",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [
@@ -46,6 +46,7 @@ class ProdutoController extends Controller
             "descricao.required" => "Este campo é obrigatório",
             "descricao.max" => "O tamanho máximo permitido é :max",
             "link.required" => "Este campo é obrigatório",
+            "link.image" => "Imagem inválida",
             "preco.required" => "Este campo é obrigatório",
             "preco.max" => "O valor máximo permitido é R$ :max",
             "preco.numeric" => "Digite um número válido",
@@ -120,6 +121,31 @@ class ProdutoController extends Controller
     }
 
     function atualizar(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            "nome" => "required|max:150",
+            "descricao" => "required|max:500",
+            "link" => "required|image",
+            "preco" => "numeric|required|max:999",
+            "idCategoria" => "required"
+        ], [
+            "nome.required" => "Este campo é obrigatório",
+            "nome.max" => "O tamanho máximo permitido é :max",
+            "descricao.required" => "Este campo é obrigatório",
+            "descricao.max" => "O tamanho máximo permitido é :max",
+            "link.required" => "Este campo é obrigatório",
+            "link.image" => "Imagem inválida",
+            "preco.required" => "Este campo é obrigatório",
+            "preco.max" => "O valor máximo permitido é R$ :max",
+            "preco.numeric" => "Digite um número válido",
+            "idCategoria" => "Este campo é obrigatório"
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
 
         $exists = Produto::find($request->id);
         if($exists == null){
