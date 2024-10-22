@@ -17,23 +17,11 @@ class LoginController extends Controller
 {
 
     function isLoged(){
-        // $user = new User();
-        // $user->name = "admin";
-        // $user->password = Hash::make("admin");
-        // $user->email = "email@gmail.com";
-        // $user->save();
         if(!Auth::check()){
             return redirect("admin/login");
         }
 
-        $categorias = Categoria::all();
-
-        $produtos = [];
-
-        foreach($categorias as $categoria){
-            $produtos[$categoria->id] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id);
-        }
-        return view("admin/home", ["categorias" => $categorias, "produtos" => $produtos]);
+        
     }
 
 

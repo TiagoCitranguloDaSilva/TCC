@@ -8,25 +8,30 @@ use App\Http\Controllers\CategoriaController;
 
 use App\Http\Controllers\ProdutoController;
 
+use App\Http\Middleware\AdminMiddleware;
 
-Route::redirect('/', "/admin/home");
 
-Route::prefix("/admin")->group(function(){
-    
-    Route::redirect('/', "/admin/home");
+Route::redirect('/', "/home");
 
-    Route::view('/login', '/admin/login');
+Route::get("/home", [ProdutoController::class, "showProducts"]);
 
-    
-    Route::controller(LoginController::class)->group(function (){
+Route::view('admin/login', '/admin/login');
+
+Route::controller(LoginController::class)->group(function (){
         
-        Route::any('/home', "isLoged");
+    
+    Route::post('admin/validar', 'validar');
+    
+    Route::any('admin/logout', 'logout');
+    
+});
 
-        Route::post('/validar', 'validar');
-        
-        Route::any('/logout', 'logout');
-
-    });
+Route::prefix("/admin")->middleware([AdminMiddleware::class])->group(function(){
+    
+    Route::redirect('/', "admin/login");
+    
+    Route::get('/home', [ProdutoController::class, "index"]);
+    
 
     Route::prefix("/categoria")->group(function (){
 
@@ -39,7 +44,9 @@ Route::prefix("/admin")->group(function(){
         Route::put("/mudancas", [CategoriaController::class, "atualizar"]);
 
         Route::get("/excluir/{id}", [CategoriaController::class, "excluir"]);
-        
+
+        Route::get("/produtosCadastrados/{id}", [CategoriaController::class, "produtosCadastrados"]);
+
     });
     
     Route::prefix("/produto")->group(function (){
@@ -53,6 +60,8 @@ Route::prefix("/admin")->group(function(){
         Route::put("/mudancas", [ProdutoController::class, "atualizar"]);
         
         Route::get("/excluir/{id}", [ProdutoController::class, "excluir"]);
+
+        Route::get("/show/{id}", [ProdutoController::class, "show"]);
 
     });
 

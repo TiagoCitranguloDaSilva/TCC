@@ -11,21 +11,24 @@
     <h1>Login</h1>
     <form id="loginForm" action="/admin/validar" method="POST" autocomplete="off">
         @csrf
-      <label for="username">Usuário:</label>
-      <input type="text" id="username" name="username" >
-      @error('username')
-       <p class="erros">{{ $message }}</p>
-          
-      @enderror
+      <div id="usuarioContainer">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username" >
+        @error('username')
+         <p class="erros">{{ $message }}</p>
+        
+        @enderror
+      </div>
 
-      <label for="password">Senha:</label>
-      <input type="password" id="password" name="password" >
-      @error('password')
-        <p class="erros">{{ $message }}</p>
-      @enderror
-      <button type="submit" id="bt">Entrar</button><br>
+      <div id="senhaContainer">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" >
+        @error('password')
+          <p class="erros">{{ $message }}</p>
+        @enderror
+      </div>
+      <button type="submit" id="bt">Entrar</button>
     </form>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>

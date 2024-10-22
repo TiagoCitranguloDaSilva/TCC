@@ -1,27 +1,20 @@
-{{-- Você logou
-<a href="/admin/logout">logout</a>
-<a href="/admin/categoria/novo">addCategoria</a>
-<a href="/admin/produto/novo">addProduto</a>
-<hr>
-<h2>Categorias</h2>
-@foreach ($categorias as $categoria)
-    <a href="/admin/categoria/update/{{ $categoria->id }}">{{ $categoria->nome }}</a>
-@endforeach
-
-<hr>
-<h2>Produtos</h2>
-@foreach ($produtos as $produto)
-    <a href="/admin/produto/update/{{ $produto->id }}">{{ $produto->nome }}</a>
-@endforeach --}}
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <title>Cardápio com Pop-up</title>
-    <link rel="stylesheet" href="{{ asset('css/stylepopup.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
 </head>
 
 <body>
+    @if (session("mensagemSucesso"))
+        <div id="message">
+            <p>{{session("mensagemSucesso")}}</p>
+        </div>
+    @endif
     <header>
         <h1>Lista de produtos</h1>
         <div id="botoesAdicionar">
@@ -31,70 +24,81 @@
     </header>
     <main>
         @forelse ($categorias as $categoria)
-            <div class="categoria">
+            <div 
+            @if (isset($categoria->disponivel) && $categoria->disponivel == 0)
+                class="categoria indisponivel"
+            @else
+                class="categoria"
+            @endif
+            >
                 <div class="nomeCategoria">
                     <h2>{{ $categoria->nome }}</h2>
                     <button class="editarCategoria" onclick="editarCategoria({{$categoria->id}})">Editar</button>
                 </div>
                 <div class="corpoCategoria">
                     @forelse ($produtos[$categoria->id] as $produto)
-                        <div class="produto">
+                        <div
+                            @if (isset($produto->disponivel) && $produto->disponivel == 0)
+                                class="produto indisponivel"
+                            @else
+                                class="produto"
+                            @endif
+                        >
                             <div id="produtoItem">
                                 <div class="card">
                                     <div class="img"
                                         style="background-image: url('{{ asset($produto->linkImagem) }}')">
                                     </div>
-                                    {{-- <img src="{{asset('pictures/imagem_produto.jpg')}}" alt="Produto"> --}}
                                     <h2>{{$produto->nome}}</h2>
                                     <p>{{$produto->descricao}}</p>
-                                    <button class="btn-ver">Ver mais</button>
-                                </div>
-                            </div>
-
-                            <div class="modal" id="myModal">
-                                <div class="modal-content">
-                                    <span class="close">&times;</span>
-                                    <div class="img"
-                                        style="background-image: url('{{ asset($produto->linkImagem) }}')">
-                                    </div>
-                                    <div class="nomeProduto">
-                                        <h2>{{$produto->nome}}</h2>
-                                    </div>
-
-                                    <div class="precoProduto">
-                                        <p>{{$produto->preco}}</p>
-                                    </div>
-
-                                    <div class="descricaoProduto">
-                                        <p>{{$produto->descricao}}</p>
-                                    </div>
-                                    <div class="disponivelProduto">
-                                        <label for="disponivel">Disponível:</label>
-                                        <input type="checkbox" id="disponivel" disabled
-                                        @if ($produto->disponivel == 1)
-                                            checked
-                                        @endif
-                                        >
-                                    </div>
-                                    <button class="btn-editar btn" onclick="editar({{$produto->id}})">Editar</button>
-                                    <button class="btn-excluir btn" onclick="excluir({{$produto->id}})">Excluir</button>
+                                    <button class="btn-ver" onclick="showPopUp({{$produto->id}})">Ver mais</button>
                                 </div>
                             </div>
                         </div>
                     @empty
                         
-                        <p>Não há produtos cadastrados</p>
+                        <p class="naoProdutos">Não há produtos cadastrados</p>
                     
                     @endforelse
                 </div>
             </div>
         @empty
-            <p>Não há categorias cadastradas</p>
+            <h2 id="naoCategorias">Não há categorias cadastradas</h2>
         @endforelse
     </main>
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="img" id="modalImage"></div>
+
+            <div class="nomeProduto">
+                <h2 id="modalNome"></h2>
+            </div>
+
+            <div class="precoProduto">
+                <p id="modalPreco"></p>
+            </div>
+
+            <div class="descricaoProduto">
+                <p id="modalDesc"></p>
+            </div>
+
+            <div class="disponivelProduto">
+                <label for="disponivel">Disponível:</label>
+                <input type="checkbox" id="disponivel" disabled>
+            </div>
+
+            <div class="botoesProduto">
+                <button class="btn-editar btn" id="btnEditar">Editar</button>
+                <button class="btn-excluir btn" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
 
     <a href="/admin/logout" id="logout">Sair</a>
-    <script src="{{ asset('js/scriptpopup.js') }}"></script>
+    <script src="{{ asset('js/scriptHome.js') }}"></script>
+    <script src="{{ asset('js/mensagem.js') }}"></script>
 </body>
 
 </html>

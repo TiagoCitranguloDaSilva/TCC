@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Validator;
+
+use App\Http\Controllers\CategoriaController;
+
 use App\Models\Produto;
-use App\Models\Categoria;
+
 use DB;
 
 use Carbon\Carbon;
@@ -16,13 +20,24 @@ use Carbon\Exceptions\InvalidFormatException;
 
 class ProdutoController extends Controller
 {
+
+    function index(){
+        $categorias = DB::select("SELECT * FROM categorias ORDER BY disponivel DESC, nome");
+
+        $produtos = [];
+
+        foreach($categorias as $categoria){
+            $produtos[$categoria->id] =  DB::select("SELECT * FROM produtos WHERE idCategoria = " . $categoria->id . " ORDER BY disponivel DESC, nome");
+        }
+        return view("admin/home", ["categorias" => $categorias, "produtos" => $produtos]);
+    }
     
     function store(Request $request){
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            "image" => "required",
+            "link" => "required|image",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [
@@ -30,12 +45,19 @@ class ProdutoController extends Controller
             "nome.max" => "O tamanho máximo permitido é :max",
             "descricao.required" => "Este campo é obrigatório",
             "descricao.max" => "O tamanho máximo permitido é :max",
-            "image.required" => "Este campo é obrigatório",
+            "link.required" => "Este campo é obrigatório",
+            "link.image" => "Imagem inválida",
             "preco.required" => "Este campo é obrigatório",
-            "preco.max" => "Valor muito alto",
+            "preco.max" => "O valor máximo permitido é R$ :max",
             "preco.numeric" => "Digite um número válido",
             "idCategoria" => "Este campo é obrigatório"
         ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
 
         $disponivel = 0;
 
@@ -56,15 +78,19 @@ class ProdutoController extends Controller
         
         $produto->idCategoria = $request->idCategoria;
 
+        if(!file_exists(public_path("pictures"))){
+            mkdir(public_path('pictures'), 0777, false);
+        }
+
         $path = "pictures/" . date("YmdHis") . "." . "jpg";
         
-        move_uploaded_file($_FILES['image']['tmp_name'], public_path($path));
+        move_uploaded_file($_FILES['link']['tmp_name'], public_path($path));
         
         $produto->linkImagem = $path;
 
         $produto->save();
 
-        return redirect("/admin/produto/novo");
+        return redirect("/admin/produto/novo")->with("mensagemSucesso", "Produto cadastrado com sucesso!");
 
     }
 
@@ -77,7 +103,9 @@ class ProdutoController extends Controller
         
         $dados = DB::select("SELECT * FROM produtos WHERE id=$id");
 
-        $categorias=Categoria::all();
+        $categoria = new CategoriaController;
+
+        $categorias = $categoria->getAll();
 
         $dataOriginal = $dados[0]->updated_at;
 
@@ -94,6 +122,31 @@ class ProdutoController extends Controller
 
     function atualizar(Request $request){
 
+        $validator = Validator::make($request->all(), [
+            "nome" => "required|max:150",
+            "descricao" => "required|max:500",
+            "link" => "required|image",
+            "preco" => "numeric|required|max:999",
+            "idCategoria" => "required"
+        ], [
+            "nome.required" => "Este campo é obrigatório",
+            "nome.max" => "O tamanho máximo permitido é :max",
+            "descricao.required" => "Este campo é obrigatório",
+            "descricao.max" => "O tamanho máximo permitido é :max",
+            "link.required" => "Este campo é obrigatório",
+            "link.image" => "Imagem inválida",
+            "preco.required" => "Este campo é obrigatório",
+            "preco.max" => "O valor máximo permitido é R$ :max",
+            "preco.numeric" => "Digite um número válido",
+            "idCategoria" => "Este campo é obrigatório"
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
         $exists = Produto::find($request->id);
         if($exists == null){
             return redirect()->back();
@@ -101,7 +154,8 @@ class ProdutoController extends Controller
 
         $path;
 
-        if(isset($request->linkImagem)){
+        if(isset($request->link)){
+
             
             
             $linkImagem = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
@@ -114,7 +168,6 @@ class ProdutoController extends Controller
             $temp = db::select("SELECT linkImagem from produtos WHERE id = " . $request->id);
             $path = $temp[0]->linkImagem;
         }
-
 
         
 
@@ -136,11 +189,11 @@ class ProdutoController extends Controller
                 "updated_at" => date("Y/m/d H:i:s")
             ]);
 
-        return redirect("/admin");
+        return redirect("/admin/home")->with("mensagemSucesso", "Produto atualizado com sucesso!");
 
     }
 
-    function excluir($id){
+    function excluir($id, $porController = false){
 
         $exists = Produto::find($id);
 
@@ -158,8 +211,36 @@ class ProdutoController extends Controller
                 ->delete();
         }
 
-        return redirect("admin/");
+        if(!$porController){
+            return redirect("admin/home")->with("mensagemSucesso", "Produto apagado com sucesso!");
+        }
 
+
+    }
+
+    function show($id){
+
+        $exists = Produto::find($id);
+
+        
+        
+        if($exists){
+            $exists->linkImagem = asset($exists->linkImagem);
+            return response()->json($exists);
+        }
+
+    }
+
+    function showProducts(){
+        $controller = new CategoriaController();
+        $categorias = $controller->pegarCategoriasDisponiveis();
+        $dados = [];
+        foreach ($categorias as $categoria) {
+            $produtos = db::select("SELECT * FROM produtos where idCategoria = " . $categoria->id . " AND disponivel = 1 ORDER BY nome");
+            $dados[$categoria->id] = $produtos;
+        }
+
+        return view("home", ["dados" => $dados, "categorias" => $categorias]);
     }
 
 }
