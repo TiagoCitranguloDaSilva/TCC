@@ -1,6 +1,6 @@
 /*------------------- Menu ----------------------*/
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -16,21 +16,21 @@ body {
   padding: 1em 0;
 }
 
-header{
+header {
   width: 100%;
   display: flex;
   align-items: center;
   padding: 1em;
 }
 
-main{
+main {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-#container{
+#container {
   width: 100%;
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ main{
   gap: 2em;
 }
 
-#logo{
+#logo {
   background-image: url('../pictures/noImage.jpg');
   background-size: cover;
   background-position: center center;
@@ -48,7 +48,7 @@ main{
   height: 15em;
 }
 
-#botoes{
+#botoes {
   display: flex;
   align-items: center;
   justify-content: end;
@@ -57,12 +57,12 @@ main{
   width: 100%;
 }
 
-#botoes button{
+#botoes button {
   font-size: 1.2rem;
   width: 2em;
 }
 
-.categoria{
+.categoria {
   width: 100%;
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ main{
   font-size: 1.4rem;
 }
 
-.tituloCategoria{
+.tituloCategoria {
   background-color: #2192FF;
   text-align: center;
   font-size: 3rem;
@@ -82,7 +82,7 @@ main{
   width: 95%;
 }
 
-.corpoCategoria{
+.corpoCategoria {
   width: 95%;
   padding: .5em;
   display: grid;
@@ -116,8 +116,8 @@ main{
   align-items: center;
   justify-items: center;
   padding: .4em;
-  white-space: nowrap;     
-  overflow: hidden;        
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -130,9 +130,10 @@ main{
   color: #7b7b7b;
 } */
 
-.card h3, .card span{
-  white-space: nowrap;     
-  overflow: hidden;        
+.card h3,
+.card span {
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
   text-align: center;
@@ -177,7 +178,7 @@ main{
   min-width: 2em;
   /* width: max-content; */
   max-width: 9em;
-  
+
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -186,8 +187,8 @@ main{
   color: black;
   padding: .6em 1em;
   text-decoration: none;
-  white-space: nowrap;     
-  overflow: hidden;        
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: block;
 }
@@ -204,67 +205,163 @@ main{
   background-color: #1812be;
 }
 
-#container{
+#container {
   font-size: 1rem;
 }
 
-h2{
+h2 {
   font-size: 1.5rem;
-  white-space: nowrap;     
-  overflow: hidden;        
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
   text-align: center;
   padding: 0 .1em;
 }
 
-.naoHa{
+.naoHa {
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
 }
 
+
+.popupBlur {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+#popup-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  background-color: #fff;
+
+  padding: 2em;
+  padding-top: 2.2em;
+  border: 3px solid #888;
+  border-radius: 4px;
+  width: 600px;
+  font-size: 1.3rem;
+  position: relative;
+  gap: 1em;
+  /* text-align: center; */
+}
+
+#popup-content h3{
+  font-size: 1.8rem;
+  font-weight: bold;
+  /* color: rgb(39, 39, 39); */
+  text-transform: uppercase;
+}
+
+#popup-content h4{
+
+  font-size: 1.6rem;
+
+}
+
+#productImage{
+  width: 400px;
+}
+
+.close {
+  /* display: block; */
+  /* width: 100%; */
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.6rem;
+  color: #aaa;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popUpActive{
+  overflow: hidden;
+}
+
+
+
 @media screen and (width < 600px) {
-  .corpoCategoria, .tituloCategoria, h2{
+
+  .corpoCategoria,
+  .tituloCategoria,
+  h2 {
     width: 100%;
   }
 
-  .tituloCategoria{
+  .tituloCategoria {
     font-size: 3.2rem;
   }
 
-  #botoes{
+  #botoes {
     justify-content: center;
     padding: 0;
     padding: .5em;
   }
 
-  #botoes button{
+  #botoes button {
     width: 100%;
     height: 2em;
     font-size: 1.5rem;
   }
 
-  html{
+  html {
     font-size: 1.4rem;
   }
 
-  .card{
+  .card {
     width: 7em;
     height: 10em;
   }
 
-  .dropbtn{
+  .dropbtn {
     font-size: .8rem;
   }
+
+  #popupBlur{
+    align-items: start;
+  }
+
+  #popup-content{
+    width: 100vw;
+    height: 100vh;
+    justify-content: start;
+    border: none;
+    border-radius: none;
+    padding: 1em;
+  }
+
+  #productImage{
+    width: 100%;
+    display: block;
+  }
+
 }
 
 @media screen and (width < 500px) {
-  .corpoCategoria{
+  .corpoCategoria {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
 }
-
