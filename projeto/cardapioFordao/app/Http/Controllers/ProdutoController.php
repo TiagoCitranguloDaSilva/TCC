@@ -125,7 +125,7 @@ class ProdutoController extends Controller
         $validator = Validator::make($request->all(), [
             "nome" => "required|max:150",
             "descricao" => "required|max:500",
-            "link" => "required|image",
+            "link" => "image",
             "preco" => "numeric|required|max:999",
             "idCategoria" => "required"
         ], [

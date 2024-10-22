@@ -1,6 +1,7 @@
 var padrao
 
 if(document.querySelector('.categoria')){
+    document.getElementById('botoes').style.display = "flex"
     padrao = (getComputedStyle(document.querySelector('.categoria')).getPropertyValue('font-size')).replace('px', '');
 }
 
