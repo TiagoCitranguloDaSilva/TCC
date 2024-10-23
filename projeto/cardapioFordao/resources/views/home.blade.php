@@ -36,7 +36,6 @@
                     <button id="diminuir" onclick="changeFontSize('reduzir')">A-</button>
                 </div>
             @endisset
-
             @forelse ($categorias as $categoria)
                 <div class="categoria" id="{{ $categoria->id }}">
                     <h2 class="tituloCategoria">{{ $categoria->nome }}</h2>
