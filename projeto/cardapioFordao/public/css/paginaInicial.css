@@ -43,7 +43,7 @@ main {
   gap: 2em;
 }
 
-#logo {
+.logo {
   background-image: url('../pictures/noImage.jpg');
   background-size: cover;
   background-position: center center;
@@ -302,7 +302,74 @@ h2 {
   overflow: hidden;
 }
 
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1300px;
+  background-color: blue;
+  flex-direction: column;
+}
 
+.rodape{
+  color: white;
+  /* height: auto; */
+  width: 100%;
+  font-size: 1rem;
+  font-family: helvetica;
+}
+
+.rodape a{
+  text-decoration: none;
+  color: white;
+}
+/* .rodape p{
+  margin-bottom: 5px;
+} */
+.rodape-div{
+  display: flex;
+  flex-wrap: wrap;
+  width:100%;
+  /* margin: auto; */
+  /* align-items: stretch; */
+  /* padding: 1em; */
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  gap: 1em;
+  padding: .5em;
+}
+
+.rodape-div > div > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background-color: red; */
+  padding: 1em;
+  gap: .5em;
+}
+/* .rodape-div-1, .rodape-div-2, .rodape-div-3, .rodape-div-4{
+  display: flex;
+  width: calc(100% / 4 - 20px);
+  padding: 10px;
+} */
+
+footer .logo, footer iframe{
+  width: 10em;
+  height: 10em;
+}
+.rodape span{
+  font-size: 1.5rem;
+  color: white;
+}
+.rodape-direitos{
+  width: 100%;
+  background-color: black;
+  padding: 10px;
+  margin: 0px;
+  text-align: center;
+}
 
 @media screen and (width < 600px) {
 
@@ -357,6 +424,10 @@ h2 {
   #productImage{
     width: 100%;
     display: block;
+  }
+
+  .rodape-div{
+    grid-template-columns: 1fr;
   }
 
 }
