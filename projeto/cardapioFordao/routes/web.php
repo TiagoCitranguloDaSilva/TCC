@@ -15,6 +15,8 @@ Route::redirect('/', "/home");
 
 Route::get("/home", [ProdutoController::class, "showProducts"]);
 
+Route::view("/desenvolvedores", "desenvolvedores");
+
 Route::view('admin/login', '/admin/login');
 
 Route::controller(LoginController::class)->group(function (){
