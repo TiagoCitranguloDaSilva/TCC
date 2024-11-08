@@ -139,7 +139,7 @@ class CategoriaController extends Controller
     }
 
     function pegarCategoriasDisponiveis(){
-        return db::select("SELECT categorias.* FROM categorias INNER JOIN produtos ON produtos.idCategoria = categorias.id");
+        return db::select("SELECT DISTINCT categorias.* FROM categorias INNER JOIN produtos ON produtos.idCategoria = categorias.id where categorias.disponivel = 1");
     }
 
     function getAll(){
