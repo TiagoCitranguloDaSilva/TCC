@@ -97,8 +97,8 @@
                 <div class="rodape-div-2-coluna">
                     <!-- elemento para contatos -->
                     <span><b>Contatos</b></span>
-                    <p>contato@na.na</p>
-                    <p>+55 63 99200-0000</p>
+                    <a href="https://www.instagram.com/restaurante_fordao/profilecard/?igsh=OG84Z2Y2NmcyNndn">Instagram</a>
+                    <a href="tel:+5519997164202">19 99716-4202</a>
                 </div>
             </div>
             <div class="rodape-div-3">

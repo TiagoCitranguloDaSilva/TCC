@@ -17,6 +17,24 @@ header{
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+#voltar{
+  position: absolute;
+  left: 7em;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6em;
+  height: 2.5em;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#voltar:hover{
+  transform: translate(-50%, -50%) scale(1.05);
+  transition: .3s;
 }
 
 h1{

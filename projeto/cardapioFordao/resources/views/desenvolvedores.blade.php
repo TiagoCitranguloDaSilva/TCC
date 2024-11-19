@@ -9,6 +9,7 @@
 <body>
   <header>
     <h1>Desenvolvedores</h1>
+    <button id="voltar" onclick="window.location.href='../'">Voltar</button>
   </header>
   <main>
     <div id="conteudo">
@@ -26,15 +27,15 @@
   </main>
   <script src="{{ asset('js/cardDesenvolvedores.js') }}"></script>
   <script>
-    createCard('Geovana Noronha Rodrigues', 'Desenvolvedora Front-end', "{{ asset('pictures/noImage.jpg') }}",
-      'https://www.linkedin.com/in/');
-    createCard('João Felipe Lopes dos Santos', 'Desenvolvedor Back-end', "{{ asset('pictures/noImage.jpg') }}",
-      'https://www.linkedin.com/in/joao-silva');
-    createCard('Miguel Granato Padilha', 'Desenvolvedor Back-end', "{{ asset('pictures/noImage.jpg') }}",
-      'https://www.linkedin.com/in/');
-    createCard('Rebeca Civera Marchi', 'Documentação', "{{ asset('pictures/noImage.jpg') }}",
-      'https://www.linkedin.com/in/');
-    createCard('Tiago Citrangulo da Silva', 'Desenvolvedor Full-stack', "{{ asset('pictures/noImage.jpg') }}",
+    createCard('Geovana Noronha Rodrigues', 'Desenvolvedora Front-end', "{{ asset('pictures/GeovanaFoto.jpeg') }}",
+      'http://www.linkedin.com/in/geovana-rodrigues-4a6539319');
+    createCard('João Felipe Lopes dos Santos', 'Desenvolvedor Back-end', "{{ asset('pictures/JoaoFoto.jpeg') }}",
+      'https://www.linkedin.com/in/jo%C3%A3o-santos-376013339?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app');
+    createCard('Miguel Granato Padilha', 'Desenvolvedor Back-end', "{{ asset('pictures/MiguelFoto.jpeg') }}",
+      'https://www.linkedin.com/in/miguel-thipadilha-72a7a1339');
+    createCard('Rebeca Civera Marchi', 'Documentação', "{{ asset('pictures/RebecaFoto.jpeg') }}",
+      'https://www.linkedin.com/in/rebeca-civera-marchi-0935bb339?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app');
+    createCard('Tiago Citrangulo da Silva', 'Desenvolvedor Full-stack', "{{ asset('pictures/TiagoFoto.jpeg') }}",
       'https://www.linkedin.com/in/TiagoCitranguloDaSilva/');
   </script>
 </body>
