@@ -2,11 +2,12 @@
 <html lang="pt-br">
 
 <head>
-    <title>Cardápio com Pop-up</title>
+    <title>Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
+    <link rel="shortcut icon" href="{{asset('pictures/logo.jpg')}}" type="image/x-icon">
 </head>
 
 <body>

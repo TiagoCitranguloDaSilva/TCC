@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quem somos nós?</title>
   <link rel="stylesheet" href="{{ asset('css/desenvolvedores.css') }}">
+  <link rel="shortcut icon" href="{{asset('pictures/logo.jpg')}}" type="image/x-icon">
 </head>
 
 <body>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="shortcut icon" href="{{asset('pictures/logo.jpg')}}" type="image/x-icon">
 </head>
 <body>
   <div class="container">

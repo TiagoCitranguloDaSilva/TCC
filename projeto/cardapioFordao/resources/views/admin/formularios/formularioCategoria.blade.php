@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/formularioCategoria.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmacao.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
+    <link rel="shortcut icon" href="{{asset('pictures/logo.jpg')}}" type="image/x-icon">
 </head>
 
 <body>

@@ -12,6 +12,7 @@
         de Produtos</title>
     <link rel="stylesheet" href="{{ asset('css/formularioProduto.css') }}">
     <link rel="stylesheet" href="{{ asset('css/avisos.css') }}">
+    <link rel="shortcut icon" href="{{asset('pictures/logo.jpg')}}" type="image/x-icon">
 </head>
 
 <body>
