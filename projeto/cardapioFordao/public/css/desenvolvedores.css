@@ -38,7 +38,7 @@ header{
 }
 
 h1{
-  font-size: 2.6em;
+  font-size: 2.6rem;
 }
 
 main{
@@ -69,6 +69,7 @@ main #conteudo p{
 
 .card {
   width: 300px;
+  height: 620px;
   margin: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -83,7 +84,7 @@ main #conteudo p{
 }
 
 .card-image {
-  height: 200px;
+  height: 300px;
   background-size: cover;
   background-position: center;
 }
@@ -94,4 +95,34 @@ main #conteudo p{
   flex-direction: column;
   gap: 1em;
   font-size: 1.2rem;
+}
+
+@media screen and (width < 600px) {
+  html{
+    font-size: 1.3rem;
+  }
+
+  body{
+    padding-top: 2em;
+  }
+
+  header{
+    position: initial;
+  }
+
+  h1{
+    font-size: 1.5rem;
+  }
+
+  main{
+    padding: 1em;
+  }
+
+  #voltar{
+    top: 3em;
+    left: 4em;
+    /* width: 10em;
+    height: 4em; */
+    font-size: 1rem;
+  }
 }

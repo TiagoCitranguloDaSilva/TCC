@@ -320,7 +320,8 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1363dd;
+  /* background-color: #1363dd; */
+  background-color: #8a5b37;
   flex-direction: column;
   width: 100%;
   color: white;
