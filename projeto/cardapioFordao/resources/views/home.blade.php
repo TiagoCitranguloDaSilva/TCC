@@ -29,7 +29,7 @@
         </div>
         
     </header>
-    <main>
+    <main id="main">
         <div id="container">
 
             @isset($categorias)
@@ -105,8 +105,7 @@
                 <div class="rodape-div-3-coluna">
                     <!-- elemento -->
                     <span><b>Links</b></span>
-                    <p><a href="#cardapio">Cardápio</a></p>
-                    <p><a href="#sobre">Sobre</a></p>
+                    <p><a href="#main">Cardápio</a></p>
                     <p><a href="/desenvolvedores">Desenvolvedores</a></p>
                 </div>
             </div>
