@@ -268,9 +268,10 @@ h2 {
 }
 
 #popup-content {
+  overflow: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-flow: column;
   background-color: #fff;
 
