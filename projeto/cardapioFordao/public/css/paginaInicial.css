@@ -282,6 +282,8 @@ h2 {
   font-size: 1.3rem;
   position: relative;
   gap: 1em;
+
+  max-height: 100svh;
 }
 
 #popup-content h3{
