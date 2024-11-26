@@ -302,6 +302,7 @@ h2 {
 #productImage{
   width: 400px;
   height: 400px;
+  min-height: 14em;
   object-fit: cover;
   overflow: auto;
 }
